@@ -4,3 +4,10 @@
 
 > 🏄‍♀️ REST API to explore, download, and publish open data sets.
 > https://api.oceanprotocol.com
+
+
+npm i
+
+./install_artifacts.sh  (will copy artifacts from running barge on spree to local folder)
+
+npm run start
