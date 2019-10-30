@@ -13,22 +13,22 @@ router.post(
 );
 
 router.get(
-  "/searchtext",
+  "/searchquery",
   async (req, res, next) => {
 	res.status(200).json(true);
  }   
 );
 router.get(
-  "/searchquery",
+  "/searchtext",
   async (req, res, next) => {
 	const query = {
-            offset: 100,
-            page: 1,
+            offset: req.query.offset || 1,
+            page: req.query.page || 1,
             query: {
                 value: 1
             },
             sort: {
-                value: 1
+                value: req.query.sort || 1
             },
             text: req.query.text
     }
