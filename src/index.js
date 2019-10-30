@@ -10,17 +10,23 @@ async function initializeOceanNetwork() {
   try {
     const _ocean = await Ocean.getInstance({
     // the node of the blockchain to connect to, could also be infura
-    nodeUri: process.env.nodeUri || 'http://localhost:8545',
+    //nodeUri: process.env.nodeUri || 'http://localhost:8545',
+	nodeUri: process.env.nodeUri || 'https://pacific.oceanprotocol.com',
     // the uri of aquarius
-    aquariusUri: process.env.aquariusUri || 'http://localhost:5000',
+    //aquariusUri: process.env.aquariusUri || 'http://localhost:5000',
+	aquariusUri: process.env.aquariusUri || 'https://aquarius.commons.oceanprotocol.com',
     // the uri of brizo
-    brizoUri: process.env.brizoUri || 'http://localhost:8030',
+    //brizoUri: process.env.brizoUri || 'http://localhost:8030',
+	brizoUri: process.env.brizoUri || 'https://brizo.commons.oceanprotocol.com',
     // address that brizo uses
     brizoAddress: process.env.brizoAddress || '0x00bd138abd70e2f00903268f3db08f2d25677c9e',
     // the uri to the parity node you want to use for encryption and decryption
-    parityUri: process.env.parityUri || 'http://localhost:9545',
+//    parityUri: process.env.parityUri || 'http://localhost:9545',
+	parityUri: process.env.parityUri || 'https://pacific.oceanprotocol.com',
     // the uri of the secret store that holds the keys
-    secretStoreUri: process.env.secretstoreUri || 'http://localhost:12001'
+    //secretStoreUri: process.env.secretstoreUri || 'http://localhost:12001'
+secretStoreUri: process.env.secretstoreUri || 'https://secret-store.oceanprotocol.com/'
+	
 	})
 	return(_ocean);
   } catch (error) {
@@ -32,12 +38,10 @@ async function initializeOceanNetwork() {
 
 (async () => {
     ocean = await initializeOceanNetwork();
-    console.log(ocean);
+    
 })().catch(e => {
     // Deal with the fact the chain failed
 });
-
-console.log(ocean)
 const app = express();
 
 // parse application/x-www-form-urlencoded

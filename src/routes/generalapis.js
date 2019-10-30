@@ -33,13 +33,15 @@ router.get(
             text: req.query.text
     }
 	var results=await res.locals.ocean.aquarius.queryMetadataByText(query); 
-	res.status(201).json(results);
+	res.status(200).json(results);
  }   
 );
 router.get(
   "/resolve",
   async (req, res, next) => {
-	res.status(200).json(true);
+	var results=await res.locals.ocean.aquarius.retrieveDDO(req.query.did); 
+	res.status(200).json(results);
+	
  }   
 );
 
