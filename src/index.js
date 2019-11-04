@@ -2,13 +2,24 @@ import express, { urlencoded, json } from "express";
 import { networkRouter,generalapis } from "./routes";
 import { handleErrors } from "./middlewares/errorHandler";
 import { Ocean, Logger } from '@oceanprotocol/squid'
+require('dotenv').load();
 var ocean;
 
+var HDWalletProvider = require("truffle-hdwallet-provider");
+var mnemonic = "axis talent grab cushion figure couple plug ostrich file false jealous nest"; // 12 word mnemonic
+var provider = new HDWalletProvider(mnemonic, process.env.nodeUri || "http://localhost:8545");
+
+
+
+import Web3 from 'web3';
+
+const web3 = new Web3(process.env.nodeUri || 'http://localhost:8545');
 
 async function initializeOceanNetwork() {
  
   try {
     const _ocean = await Ocean.getInstance({
+	web3Provider: provider,
     // the node of the blockchain to connect to, could also be infura
     nodeUri: process.env.nodeUri || 'http://localhost:8545',
 	// the uri of aquarius
@@ -31,12 +42,14 @@ async function initializeOceanNetwork() {
 }
 
 
+
 (async () => {
     ocean = await initializeOceanNetwork();
-    
+	console.log(ocean);    
 })().catch(e => {
     // Deal with the fact the chain failed
 });
+
 const app = express();
 
 // parse application/x-www-form-urlencoded
@@ -48,6 +61,7 @@ app.use(json());
 // configure CORS headers
 app.use((req, res, next) => {
    res.locals.ocean=ocean;
+    res.locals.provider=provider;
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",

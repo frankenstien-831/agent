@@ -8,7 +8,29 @@ router.post(
   "/publish",
   
   async (req, res, next) => {
-	res.status(200).json(true);
+	console.log("Started publish");
+	 const accounts = await res.locals.ocean.accounts.list()
+	console.log(req.body.metadata);
+	var typeofgdpr =req.body.typeofgdpr;
+	var gdprcomply = req.body.gdprcomply;
+	var havecopyright = req.body.havecopyright;
+	var result;
+	var publisher=req.body.publisher;
+	
+	if(res.locals.provider.utils.isAddress(publisher)!=true){
+		res.status(200).json(null);
+	}
+	else{
+		try{
+     		const ddo = await res.locals.ocean.assets.create(req.body.metadata, accounts[0])
+      		result=ddo.id;
+		}
+		catch(error){
+			result=null;
+		}
+	 // console.log(req)
+		res.status(200).json(result);
+	}
  }   
 );
 
