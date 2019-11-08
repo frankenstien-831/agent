@@ -45,7 +45,7 @@ async function initializeOceanNetwork() {
 
 (async () => {
     ocean = await initializeOceanNetwork();
-	console.log(ocean);    
+	//console.log(ocean);    
 })().catch(e => {
     // Deal with the fact the chain failed
 });

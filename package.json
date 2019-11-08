@@ -30,10 +30,12 @@
   },
   "dependencies": {
     "@oceanprotocol/squid": "^0.6.6",
+    "base64-arraybuffer": "^0.2.0",
     "dotenv": "^6.2.0",
     "express": "^4.16.3",
     "express-json-validator-middleware": "^1.2.3",
     "mongodb": "^3.1.1",
+    "node-fetch": "^2.6.0",
     "truffle-hdwallet-provider": "^1.0.17",
     "web3": "^1.2.2",
     "websocket": "^1.0.29"
