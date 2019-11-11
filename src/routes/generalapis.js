@@ -2,6 +2,7 @@ import express from "express";
 import validate from "../middlewares/validator";
 import fetch, { BodyInit, RequestInit, Response } from 'node-fetch'
 var b64enc=require("base64-arraybuffer");
+var sample_metadata=require("../schemas/sample_metadata.js");
 
 const router = express.Router();
 
@@ -77,6 +78,16 @@ router.get(
 	res.status(200).json(true);
  }   
 );
+
+
+router.get(
+  "/samplemetadata",
+  async (req, res, next) => {
+	res.status(200).json(sample_metadata.sample_metadata);
+ }   
+);
+
+
 router.get(
   "/searchtext",
   async (req, res, next) => {
