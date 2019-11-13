@@ -43,34 +43,99 @@ function inputMatch(
 
 // POST request to register new network
 router.post(
-  "/publish",
+  "/publishddo",
   
   async (req, res, next) => {
 	console.log("Started publish");
 	 const accounts = await res.locals.ocean.accounts.list()
-	console.log(req.body.metadata);
+	//console.log(req.body.metadata);
 	var typeofgdpr =req.body.typeofgdpr;
 	var gdprcomply = req.body.gdprcomply;
 	var havecopyright = req.body.havecopyright;
 	var result;
 	var publisher=req.body.publisher;
+	try{
+    	var ddo = await res.locals.ocean.assets.create(req.body.metadata, accounts[0])
+		console.log(ddo)
+    	result=ddo.id;
+	}
+	catch(error){
+		console.error(error);
+		result=null;
+	}
+	res.status(200).json(result);
 	
-	if(res.locals.provider.utils.isAddress(publisher)!=true){
-		res.status(200).json(null);
-	}
-	else{
-		try{
-     		const ddo = await res.locals.ocean.assets.create(req.body.metadata, accounts[0])
-      		result=ddo.id;
-		}
-		catch(error){
-			result=null;
-		}
-	 // console.log(req)
-		res.status(200).json(result);
-	}
  }   
 );
+
+
+router.post(
+  "/publish",
+  
+  async (req, res, next) => {
+	console.log("Started publish");
+	 const accounts = await res.locals.ocean.accounts.list()
+	var result;
+	//console.log(req.body.metadata);
+	const AssetModel = {
+    assetId: null,
+    publisherId: null,
+
+    // OEP-08 Attributes
+    // https://github.com/oceanprotocol/OEPs/tree/master/8
+    base: {
+        name: null,
+        description: null,
+        dateCreated: null,
+        author: null,
+        type: '',
+        license: null,
+        copyrightHolder: null,
+        workExample: '',
+        files: [],
+        categories: [],
+        links: [],
+        inLanguage: '',
+        tags: [],
+        price: ''
+    }
+}
+
+try {
+	const newAsset = {
+            // OEP-08 Attributes
+            // https://github.com/oceanprotocol/OEPs/tree/master/8
+            base: Object.assign(AssetModel.base, {
+                name: req.body.name,
+                description: req.body.description,
+                dateCreated:
+                    new Date()
+                        .toISOString()
+                        .split('.')[0] + 'Z', // remove milliseconds
+                author: req.body.author,
+                license: req.body.license,
+                copyrightHolder: req.body.copyrightHolder,
+                files: req.body.files,
+                price: req.body.price,
+                type: req.body.type,
+                categories: [req.body.categories]
+            })
+        }
+
+        
+            const asset = await res.locals.ocean.assets.create(newAsset, accounts[0])
+                result=asset.id;
+	}
+	catch(error){
+		console.error(error);
+		result=null;
+	}
+	res.status(200).json(result);
+	
+ }   
+);
+
+
 
 router.get(
   "/searchquery",
