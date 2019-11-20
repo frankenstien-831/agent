@@ -8,13 +8,13 @@ var ocean;
 
 var HDWalletProvider = require("truffle-hdwallet-provider");
 //var mnemonic = "axis talent grab cushion figure couple plug ostrich file false jealous nest"; // 12 word mnemonic
-var provider = new HDWalletProvider(process.env.PRIVATE_KEY, process.env.nodeUri || "http://localhost:8545");
+var provider = new HDWalletProvider(process.env.PRIVATE_KEY, process.env.nodeUri);
 
 
 
 import Web3 from 'web3';
 
-const web3 = new Web3(process.env.nodeUri || 'http://localhost:8545');
+const web3 = new Web3(process.env.nodeUri);
 
 async function initializeOceanNetwork() {
  
@@ -22,17 +22,17 @@ async function initializeOceanNetwork() {
     const _ocean = await Ocean.getInstance({
 	web3Provider: provider,
     // the node of the blockchain to connect to, could also be infura
-    nodeUri: process.env.nodeUri || 'http://localhost:8545',
+    nodeUri: process.env.nodeUri,
 	// the uri of aquarius
-    aquariusUri: process.env.aquariusUri || 'http://localhost:5000',
+    aquariusUri: process.env.aquariusUri,
 	// the uri of brizo
-    brizoUri: process.env.brizoUri || 'http://localhost:8030',
+    brizoUri: process.env.brizoUri,
 	// address that brizo uses
-    brizoAddress: process.env.brizoAddress || '0x00bd138abd70e2f00903268f3db08f2d25677c9e',
+    brizoAddress: process.env.brizoAddress,
     // the uri to the parity node you want to use for encryption and decryption
-    parityUri: process.env.parityUri || 'http://localhost:9545',
+    parityUri: process.env.parityUri,
     // the uri of the secret store that holds the keys
-    secretStoreUri: process.env.secretstoreUri || 'http://localhost:12001'
+    secretStoreUri: process.env.secretstoreUri
 	
 	})
 	return(_ocean);
