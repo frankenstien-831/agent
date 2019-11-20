@@ -2,12 +2,13 @@ import express, { urlencoded, json } from "express";
 import { networkRouter,generalapis } from "./routes";
 import { handleErrors } from "./middlewares/errorHandler";
 import { Ocean, Logger } from '@oceanprotocol/squid'
+const rateLimit = require("express-rate-limit");
 require('dotenv').load();
 var ocean;
 
 var HDWalletProvider = require("truffle-hdwallet-provider");
-var mnemonic = "axis talent grab cushion figure couple plug ostrich file false jealous nest"; // 12 word mnemonic
-var provider = new HDWalletProvider(mnemonic, process.env.nodeUri || "http://localhost:8545");
+//var mnemonic = "axis talent grab cushion figure couple plug ostrich file false jealous nest"; // 12 word mnemonic
+var provider = new HDWalletProvider(process.env.PRIVATE_KEY, process.env.nodeUri || "http://localhost:8545");
 
 
 
@@ -74,6 +75,17 @@ app.use((req, res, next) => {
 app.use("/network", networkRouter);
 app.use("/", generalapis);
 app.use(handleErrors);
+
+//rate limits
+const apiLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 15
+});
+ 
+// only apply to requests that begin with /api/
+app.use("/network/publish", apiLimiter);
+app.use("/network/publishddo", apiLimiter);
+
 
 //start express server
 const server = app.listen(process.env.PORT || 4040, () => {
