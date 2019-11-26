@@ -5,8 +5,11 @@ import { handleErrors } from "./middlewares";
 var winston = require('./config/winston');
 const morgan = require('morgan');
 const rateLimit = require("express-rate-limit");
+var request = require('request');
 import { initializeOceanNetwork, provider } from "./init_ocean"
+import { exitOnError } from "winston";
 require('dotenv').load();
+const util = require('util')
 
 
 /*-----------------------------------
@@ -15,7 +18,19 @@ require('dotenv').load();
 var ocean;
 (async () => {
     ocean = await initializeOceanNetwork();
-	//console.log(ocean);    
+    console.log(`${ocean}`);
+    console.log(util.inspect(ocean, {showHidden: false, depth: null}))
+    console.log(JSON.stringify(ocean, null, 4));
+    
+    ocean.brizo.url
+    ocean.keeper.connected == true
+
+    var r = request(ocean.aquarius.url, function (e, response) {
+      r.uri
+      response.request.uri
+    })
+
+	console.log(ocean);    
 })().catch(e => {
     // Deal with the fact the chain failed
 });
