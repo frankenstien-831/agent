@@ -13,7 +13,7 @@ if (!fs.existsSync(logDir)) {
 
 const filename = path.join(logDir, `${Date.now()}.log`);
 
-const logger = createLogger({
+const winston_logger = createLogger({
   // change level if in dev environment versus production
   level: env === 'development' ? 'debug' : 'info',
   format: format.combine(
@@ -59,4 +59,4 @@ const getFileName = () => {
     };
   }
 
-export { logger };
+export { winston_logger };

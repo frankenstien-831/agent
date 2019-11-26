@@ -1,6 +1,7 @@
 import express, { urlencoded, json } from "express";
 import { networkRouter,generalapis } from "./routes";
-import { handleErrors } from "./middlewares/errorHandler";
+import { handleErrors, winston_logger } from "./middlewares";
+const morgan = require('morgan');
 import { Ocean, Logger } from '@oceanprotocol/squid'
 const rateLimit = require("express-rate-limit");
 require('dotenv').load();
@@ -52,6 +53,10 @@ async function initializeOceanNetwork() {
 });
 
 const app = express();
+
+// Logging
+app.use(morgan('dev'));
+// app.use(winston_logger);
 
 // parse application/x-www-form-urlencoded
 app.use(urlencoded({ extended: true }));

@@ -1,7 +1,7 @@
 import { handleErrors } from './errorHandler';
-import { logger } from './logger';
+import { winston_logger } from './winston_logger';
 
 export  {
     handleErrors,
-    logger,
+    winston_logger,
 }
