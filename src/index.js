@@ -14,11 +14,13 @@ const util = require('util')
 /*-----------------------------------
     Instantiate the Ocean connection 
   -----------------------------------*/
+winston.info("Instantiating Ocean Squid library")
 var ocean;
 (async () => {
   ocean = await initializeOceanNetwork();
   //console.log(ocean);    
 })().catch(e => {
+  console.log("Failed to connect to Ocean network", e);
   // Deal with the fact the chain failed
 });
 
@@ -28,9 +30,9 @@ var ocean;
 // ocean.brizo.url
 // ocean.keeper.connected == true
 
-// var r = request.get(ocean.aquarius.url, function (err, res, body) {
-//   console.log(body);
-// })
+var r = request.get(ocean.aquarius.url, function (err, res, body) {
+  console.log(body);
+})
 
 // console.log('OK1');
 // console.log('OK');
@@ -41,8 +43,9 @@ var ocean;
 // });
 
 /*-----------------------------------
-    Build the Express app
+    Build the Express app + middleware
   -----------------------------------*/
+winston.info("Building Express application")
 const app = express();
 
 // Logging with morgan and winston
@@ -72,6 +75,7 @@ app.use((req, res, next) => {
 /*-----------------------------------
     Routes
   -----------------------------------*/
+winston.info("Building routes")
 app.use("/network", networkRouter);
 app.use("/", generalapis);
 app.use(handleErrors);
@@ -89,8 +93,8 @@ app.use("/network/publishddo", apiLimiter);
 /*-----------------------------------
     Start the server
   -----------------------------------*/
+winston.info("Starting server")
 const server = app.listen(process.env.PORT || 4040, () => {
   winston.info(`Server started on Port ${process.env.PORT || 4040}`);
-  // console.log(`Server started on Port ${process.env.PORT || 4040}`);
-});
+}).on('error', console.log);
 
