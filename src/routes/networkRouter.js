@@ -4,7 +4,7 @@ import validate from "../middlewares/validator";
 const router = express.Router();
 
 // POST request to register new network
-router.post(
+router.get(
   "/aquarius/status",
   
   async (req, res, next) => {
@@ -16,7 +16,7 @@ router.post(
 );
 
 
-router.post(
+router.get(
   "/brizo/status",
   
   async (req, res, next) => {
