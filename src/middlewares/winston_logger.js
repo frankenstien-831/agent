@@ -1,5 +1,24 @@
 /* logging middleware */
 import { createLogger, format, transports } from 'winston';
+const { label, combine, timestamp , prettyPrint } = format;
+
+
+const winston_logger = createLogger({
+  format: combine(
+        timestamp(),
+        prettyPrint(),
+      ),
+  transports: [
+    new transports.Console(),
+    new transports.File({ filename: './error.log' , level: 'error'  }),
+    new transports.File({ filename: './info.log' , level: 'info'  }),
+  ],
+  exitOnError: false,
+});
+ 
+export default winston_logger;
+
+/*
 import fs from 'fs';
 import path from 'path';
 
@@ -60,3 +79,4 @@ const getFileName = () => {
   }
 
 export { winston_logger };
+*/

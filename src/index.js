@@ -1,6 +1,8 @@
 import express, { urlencoded, json } from "express";
 import { networkRouter,generalapis } from "./routes";
-import { handleErrors, winston_logger } from "./middlewares";
+import { handleErrors } from "./middlewares";
+// import { winston_logger } from "./middlewares";
+var winston = require('./config/winston');
 const morgan = require('morgan');
 import { Ocean, Logger } from '@oceanprotocol/squid'
 const rateLimit = require("express-rate-limit");
@@ -55,7 +57,9 @@ async function initializeOceanNetwork() {
 const app = express();
 
 // Logging
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
+app.use(morgan('combined', { stream: winston.stream }));
+
 // app.use(winston_logger);
 
 // parse application/x-www-form-urlencoded
@@ -94,6 +98,7 @@ app.use("/network/publishddo", apiLimiter);
 
 //start express server
 const server = app.listen(process.env.PORT || 4040, () => {
-  console.log(`Server started on Port ${process.env.PORT || 4040}`);
+  winston.info(`Server started on Port ${process.env.PORT || 4040}`);
+  // console.log(`Server started on Port ${process.env.PORT || 4040}`);
 });
 
