@@ -18,29 +18,22 @@ winston.info("Instantiating Ocean Squid library")
 var ocean;
 (async () => {
   ocean = await initializeOceanNetwork();
-  //console.log(ocean);    
-})().catch(e => {
-  console.log("Failed to connect to Ocean network", e);
+  request.get(ocean.aquarius.url + 2, function (err, res, body) {
+    if (err) {
+      console.log('ERROR');
+      throw new Error("Can't connect to Aquarius!")
+    } else if (res.statusCode == 200) {
+      console.log(body);
+      winston.info(`Ocean connected to Aquarius`);
+    }
+  });
+})().catch(err => {
+  console.log("Failed to connect to Ocean network", err);
   // Deal with the fact the chain failed
 });
 
-// console.log(util.inspect(ocean, {showHidden: false, depth: null}))
-// console.log(JSON.stringify(ocean, null, 4));
-
 // ocean.brizo.url
 // ocean.keeper.connected == true
-
-var r = request.get(ocean.aquarius.url, function (err, res, body) {
-  console.log(body);
-})
-
-// console.log('OK1');
-// console.log('OK');
-// request.get(ocean.aquarius.url, function (err, res, body) {
-//   console.error('error:', error); // Print the error if one occurred
-//   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-//   console.log('body:', body); // Print the HTML for the Google homepage.  })
-// });
 
 /*-----------------------------------
     Build the Express app + middleware
@@ -49,9 +42,7 @@ winston.info("Building Express application")
 const app = express();
 
 // Logging with morgan and winston
-// app.use(morgan('dev'));
 app.use(morgan('combined', { stream: winston.stream }));
-// app.use(winston_logger);
 
 // parse application/x-www-form-urlencoded
 app.use(urlencoded({ extended: true }));
