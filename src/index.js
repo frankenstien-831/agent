@@ -5,7 +5,7 @@ import { handleErrors } from "./middlewares";
 var winston = require('./config/winston');
 const morgan = require('morgan');
 const rateLimit = require("express-rate-limit");
-import initializeOceanNetwork from "./init_ocean"
+import { initializeOceanNetwork, provider } from "./init_ocean"
 require('dotenv').load();
 
 

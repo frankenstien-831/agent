@@ -32,4 +32,4 @@ async function initializeOceanNetwork() {
   }
 }
 
-export default initializeOceanNetwork;
+export { initializeOceanNetwork, provider }
