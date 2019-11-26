@@ -4,4 +4,6 @@ export aquariusUri='http://localhost:5000';
 export brizoUri='http://localhost:8030'
 export brizoAddress='0x00bd138abd70e2f00903268f3db08f2d25677c9e'
 export secretstoreUri='http://localhost:12001'
+. ./install_artifacts.sh
+
 npm run start
