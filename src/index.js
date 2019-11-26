@@ -1,49 +1,18 @@
 import express, { urlencoded, json } from "express";
 import { networkRouter,generalapis } from "./routes";
-import { handleErrors } from "./middlewares/errorHandler";
-import { Ocean, Logger } from '@oceanprotocol/squid'
+import { handleErrors } from "./middlewares";
+// import { winston_logger } from "./middlewares";
+var winston = require('./config/winston');
+const morgan = require('morgan');
 const rateLimit = require("express-rate-limit");
+import { initializeOceanNetwork, provider } from "./init_ocean"
 require('dotenv').load();
+
+
+/*-----------------------------------
+    Instantiate the Ocean connection 
+  -----------------------------------*/
 var ocean;
-
-var HDWalletProvider = require("truffle-hdwallet-provider");
-//var mnemonic = "axis talent grab cushion figure couple plug ostrich file false jealous nest"; // 12 word mnemonic
-var provider = new HDWalletProvider(process.env.PRIVATE_KEY, process.env.nodeUri);
-
-
-
-import Web3 from 'web3';
-
-const web3 = new Web3(process.env.nodeUri);
-
-async function initializeOceanNetwork() {
- 
-  try {
-    const _ocean = await Ocean.getInstance({
-	web3Provider: provider,
-    // the node of the blockchain to connect to, could also be infura
-    nodeUri: process.env.nodeUri,
-	// the uri of aquarius
-    aquariusUri: process.env.aquariusUri,
-	// the uri of brizo
-    brizoUri: process.env.brizoUri,
-	// address that brizo uses
-    brizoAddress: process.env.brizoAddress,
-    // the uri to the parity node you want to use for encryption and decryption
-    parityUri: process.env.parityUri,
-    // the uri of the secret store that holds the keys
-    secretStoreUri: process.env.secretstoreUri
-	
-	})
-	return(_ocean);
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
-
-
-
 (async () => {
     ocean = await initializeOceanNetwork();
 	//console.log(ocean);    
@@ -51,7 +20,15 @@ async function initializeOceanNetwork() {
     // Deal with the fact the chain failed
 });
 
+/*-----------------------------------
+    Build the Express app
+  -----------------------------------*/
 const app = express();
+
+// Logging with morgan and winston
+// app.use(morgan('dev'));
+app.use(morgan('combined', { stream: winston.stream }));
+// app.use(winston_logger);
 
 // parse application/x-www-form-urlencoded
 app.use(urlencoded({ extended: true }));
@@ -72,6 +49,9 @@ app.use((req, res, next) => {
   next();
 });
 
+/*-----------------------------------
+    Routes
+  -----------------------------------*/
 app.use("/network", networkRouter);
 app.use("/", generalapis);
 app.use(handleErrors);
@@ -86,9 +66,11 @@ const apiLimiter = rateLimit({
 app.use("/network/publish", apiLimiter);
 app.use("/network/publishddo", apiLimiter);
 
-
-//start express server
+/*-----------------------------------
+    Start the server
+  -----------------------------------*/
 const server = app.listen(process.env.PORT || 4040, () => {
-  console.log(`Server started on Port ${process.env.PORT || 4040}`);
+  winston.info(`Server started on Port ${process.env.PORT || 4040}`);
+  // console.log(`Server started on Port ${process.env.PORT || 4040}`);
 });
 
