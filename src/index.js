@@ -18,22 +18,62 @@ winston.info("Instantiating Ocean Squid library")
 var ocean;
 (async () => {
   ocean = await initializeOceanNetwork();
-  request.get(ocean.aquarius.url + 2, function (err, res, body) {
-    if (err) {
-      console.log('ERROR');
-      throw new Error("Can't connect to Aquarius!")
-    } else if (res.statusCode == 200) {
-      console.log(body);
-      winston.info(`Ocean connected to Aquarius`);
+  // Assert Aquarius connection
+  request.get(ocean.aquarius.url, function (err, res, body) {
+    try {
+      if (err) {
+        console.error(`Can't connect to Aquarius at ${ocean.aquarius.url}`);
+        process.exit()
+      }
+
+      if (res.statusCode != 200) {
+        console.error(`Can't connect to Aquarius at ${ocean.aquarius.url}`);
+        process.exit()
+      }
+
+      var status = JSON.parse(body);
+      if (!status.hasOwnProperty('version')) {
+        console.error(`Improper status endpoint on ${ocean.aquarius.url}`);
+        process.exit()
+      }
+      winston.info(`Ocean connected to Aquarius ${status.version}`);
+    }
+    catch (error) {
+      console.error(error);
+      process.exit();
     }
   });
+
+  // Assert Brizo connection
+  request.get(ocean.brizo.url, function (err, res, body) {
+    try {
+      if (err) {
+        console.log(`Can't connect to Brizo at ${ocean.brizo.url}`);
+        process.exit()
+      }
+
+      if (res.statusCode != 200) {
+        console.error(`Can't connect to Brizo at ${ocean.brizo.url}`);
+        process.exit()
+      }
+
+      var status = JSON.parse(body);
+      if (!status.hasOwnProperty('version')) {
+        console.error(`Improper status endpoint on ${ocean.brizo.url}`);
+        process.exit()
+      }
+      winston.info(`Ocean connected to Brizo ${status.version}`);
+    }
+    catch (error) {
+      console.error(error);
+      process.exit();
+    }
+  });
+
 })().catch(err => {
   console.log("Failed to connect to Ocean network", err);
-  // Deal with the fact the chain failed
+  process.exit();
 });
-
-// ocean.brizo.url
-// ocean.keeper.connected == true
 
 /*-----------------------------------
     Build the Express app + middleware
