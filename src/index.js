@@ -1,5 +1,5 @@
 import express, { urlencoded, json } from "express";
-import { networkRouter,generalapis } from "./routes";
+import { networkRouter, generalapis } from "./routes";
 import { handleErrors } from "./middlewares";
 // import { winston_logger } from "./middlewares";
 var winston = require('./config/winston');
@@ -11,81 +11,82 @@ import { exitOnError } from "winston";
 require('dotenv').load();
 const util = require('util')
 
-
 /*-----------------------------------
     Instantiate the Ocean connection 
   -----------------------------------*/
 var ocean;
 (async () => {
-    ocean = await initializeOceanNetwork();
-    console.log(`${ocean}`);
-    console.log(util.inspect(ocean, {showHidden: false, depth: null}))
-    console.log(JSON.stringify(ocean, null, 4));
-    
-    ocean.brizo.url
-    ocean.keeper.connected == true
+  ocean = await initializeOceanNetwork();
+  // console.log(util.inspect(ocean, {showHidden: false, depth: null}))
+  // console.log(JSON.stringify(ocean, null, 4));
 
-    var r = request(ocean.aquarius.url, function (e, response) {
-      r.uri
-      response.request.uri
-    })
+  // ocean.brizo.url
+  // ocean.keeper.connected == true
 
-	console.log(ocean);    
-})().catch(e => {
-    // Deal with the fact the chain failed
-});
+  // var r = request.get(ocean.aquarius.url, function (err, res, body) {
+  //   console.log(body);
+  // })
 
-/*-----------------------------------
-    Build the Express app
-  -----------------------------------*/
-const app = express();
+  // console.log('OK1');
+  // console.log('OK');
+  // request.get(ocean.aquarius.url, function (err, res, body) {
+  //   console.error('error:', error); // Print the error if one occurred
+  //   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+  //   console.log('body:', body); // Print the HTML for the Google homepage.  })
+  // });
 
-// Logging with morgan and winston
-// app.use(morgan('dev'));
-app.use(morgan('combined', { stream: winston.stream }));
-// app.use(winston_logger);
+  /*-----------------------------------
+      Build the Express app
+    -----------------------------------*/
+  const app = express();
 
-// parse application/x-www-form-urlencoded
-app.use(urlencoded({ extended: true }));
+  // Logging with morgan and winston
+  // app.use(morgan('dev'));
+  app.use(morgan('combined', { stream: winston.stream }));
+  // app.use(winston_logger);
 
-// parse application/json
-app.use(json());
+  // parse application/x-www-form-urlencoded
+  app.use(urlencoded({ extended: true }));
 
-// configure CORS headers
-app.use((req, res, next) => {
-   res.locals.ocean=ocean;
-    res.locals.provider=provider;
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-  next();
-});
+  // parse application/json
+  app.use(json());
 
-/*-----------------------------------
-    Routes
-  -----------------------------------*/
-app.use("/network", networkRouter);
-app.use("/", generalapis);
-app.use(handleErrors);
+  // configure CORS headers
+  app.use((req, res, next) => {
+    res.locals.ocean = ocean;
+    res.locals.provider = provider;
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+    next();
+  });
 
-//rate limits
-const apiLimiter = rateLimit({
-  windowMs: 5 * 60 * 1000, // 5 minutes
-  max: 15
-});
- 
-// only apply to requests that begin with /api/
-app.use("/network/publish", apiLimiter);
-app.use("/network/publishddo", apiLimiter);
+  /*-----------------------------------
+      Routes
+    -----------------------------------*/
+  app.use("/network", networkRouter);
+  app.use("/", generalapis);
+  app.use(handleErrors);
 
-/*-----------------------------------
-    Start the server
-  -----------------------------------*/
-const server = app.listen(process.env.PORT || 4040, () => {
-  winston.info(`Server started on Port ${process.env.PORT || 4040}`);
-  // console.log(`Server started on Port ${process.env.PORT || 4040}`);
+  //rate limits
+  const apiLimiter = rateLimit({
+    windowMs: 5 * 60 * 1000, // 5 minutes
+    max: 15
+  });
+
+  // only apply to requests that begin with /api/
+  app.use("/network/publish", apiLimiter);
+  app.use("/network/publishddo", apiLimiter);
+
+  /*-----------------------------------
+      Start the server
+    -----------------------------------*/
+  const server = app.listen(process.env.PORT || 4040, () => {
+    winston.info(`Server started on Port ${process.env.PORT || 4040}`);
+    // console.log(`Server started on Port ${process.env.PORT || 4040}`);
+  });
 });
 
