@@ -6,69 +6,24 @@ var winston = require('./config/winston');
 const morgan = require('morgan');
 const rateLimit = require("express-rate-limit");
 var request = require('request');
+
+import { checkAquarius, checkBrizo } from "./models/checkOcean"
+
 import { initializeOceanNetwork, provider } from "./init_ocean"
 import { exitOnError } from "winston";
 require('dotenv').load();
 const util = require('util')
 
 /*-----------------------------------
-    Instantiate the Ocean connection 
+    Instantiate the Ocean connection
   -----------------------------------*/
 winston.info("Instantiating Ocean Squid library")
 var ocean;
 (async () => {
   ocean = await initializeOceanNetwork();
-  // Assert Aquarius connection
-  request.get(ocean.aquarius.url, function (err, res, body) {
-    try {
-      if (err) {
-        console.error(`Can't connect to Aquarius at ${ocean.aquarius.url}`);
-        process.exit()
-      }
-
-      if (res.statusCode != 200) {
-        console.error(`Can't connect to Aquarius at ${ocean.aquarius.url}`);
-        process.exit()
-      }
-
-      var status = JSON.parse(body);
-      if (!status.hasOwnProperty('version')) {
-        console.error(`Improper status endpoint on ${ocean.aquarius.url}`);
-        process.exit()
-      }
-      winston.info(`Ocean connected to Aquarius ${status.version}`);
-    }
-    catch (error) {
-      console.error(error);
-      process.exit();
-    }
-  });
-
-  // Assert Brizo connection
-  request.get(ocean.brizo.url, function (err, res, body) {
-    try {
-      if (err) {
-        console.log(`Can't connect to Brizo at ${ocean.brizo.url}`);
-        process.exit()
-      }
-
-      if (res.statusCode != 200) {
-        console.error(`Can't connect to Brizo at ${ocean.brizo.url}`);
-        process.exit()
-      }
-
-      var status = JSON.parse(body);
-      if (!status.hasOwnProperty('version')) {
-        console.error(`Improper status endpoint on ${ocean.brizo.url}`);
-        process.exit()
-      }
-      winston.info(`Ocean connected to Brizo ${status.version}`);
-    }
-    catch (error) {
-      console.error(error);
-      process.exit();
-    }
-  });
+  // Check connections
+  checkAquarius(ocean.aquarius.url);
+  checkBrizo(ocean.brizo.url);
 
 })().catch(err => {
   console.log("Failed to connect to Ocean network", err);
