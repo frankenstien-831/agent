@@ -1,5 +1,5 @@
 import express, { urlencoded, json } from "express";
-import { networkRouter, generalapis } from "./routes";
+import { networkRouter, generalapis } from "./routes/index.router";
 import { handleErrors } from "./middlewares";
 // import { winston_logger } from "./middlewares";
 var winston = require('./config/winston');
@@ -9,7 +9,7 @@ var request = require('request');
 
 import { checkAquarius, checkBrizo } from "./models/checkOcean"
 
-import { initializeOceanNetwork, provider } from "./init_ocean"
+import { initializeOceanNetwork, provider } from "./models/initializeOcean"
 import { exitOnError } from "winston";
 require('dotenv').load();
 const util = require('util')
@@ -83,4 +83,3 @@ winston.info("Starting server")
 const server = app.listen(process.env.PORT || 4040, () => {
   winston.info(`Server started on Port ${process.env.PORT || 4040}`);
 }).on('error', console.log);
-
