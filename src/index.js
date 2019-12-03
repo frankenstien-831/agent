@@ -1,14 +1,10 @@
 import express, { urlencoded, json } from "express";
 import { networkRouter, generalapis } from "./routes/index.router";
 import { handleErrors } from "./middlewares";
-// import { winston_logger } from "./middlewares";
 var winston = require('./config/winston');
 const morgan = require('morgan');
 const rateLimit = require("express-rate-limit");
-var request = require('request');
-
 import { checkAquarius, checkBrizo } from "./models/checkOcean"
-
 import { initializeOceanNetwork, provider } from "./models/initializeOcean"
 import { exitOnError } from "winston";
 require('dotenv').load();
