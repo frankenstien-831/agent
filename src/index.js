@@ -58,7 +58,7 @@ app.use((req, res, next) => {
     Routes
   -----------------------------------*/
 winston.info("Building routes")
-app.use("/network", networkRouter);
+app.use("/api/network", networkRouter);
 app.use("/", generalapis);
 app.use(handleErrors);
 

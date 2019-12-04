@@ -6,11 +6,7 @@ var sample_metadata = require("../schemas/sample_metadata.js");
 
 const router = express.Router();
 
-
-
 //copyed from https://github.com/oceanprotocol/squid-js/blob/8734e8f42d43d9bd31d08f5bc4104d31a63cb3e0/src/utils/ConversionTypeHelpers.ts
-
-
 
 function zeroXTransformer(input, zeroOutput) {
     const { valid, output } = inputMatch(
@@ -140,7 +136,7 @@ router.post(
 router.get(
     "/searchquery",
     async (req, res, next) => {
-        res.status(200).json(true);
+        res.status(200).json("TO BE IMPLEMENTED");
     }
 );
 

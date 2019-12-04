@@ -13,6 +13,21 @@ npm i
 npm run start
 
 
+# Architecture
+
+The API follows the library architecture as specified in the [squid library specifications](https://github.com/oceanprotocol/dev-ocean/blob/master/doc/architecture/squid-specs/squid-spec_v0.3.md).
+
+
+The following resources are defined;
+ - ocean
+ - ocean.assets
+ - ocean.accounts
+ - ocean.secret_store
+ - ocean.tokens
+ - ocean.templates
+ - ocean.services
+ - ocean.agreements
+ - ocean.agreements.conditions
 
 
 
