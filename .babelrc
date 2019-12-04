@@ -1,17 +1,3 @@
 {
-  "presets": ["es2015", "stage-2"],
-  "plugins": [
-    [
-      "babel-plugin-dotenv",
-      {
-        "replacedModuleName": "babel-dotenv"
-      }
-    ],
-    [
-      "transform-runtime",
-      {
-        "regenerator": true
-      }
-    ]
-  ]
+  "presets": ["@babel/env"]
 }

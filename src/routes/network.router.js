@@ -1,31 +1,25 @@
-import express from "express";
-import validate from "../middlewares/validator";
+import express from 'express'
 
-const router = express.Router();
+const router = express.Router()
 
 // POST request to register new network
 router.get(
-  "/aquarius/status",
+  '/aquarius/status',
 
   async (req, res, next) => {
-
-	var networkname=await res.locals.ocean.aquarius.getVersionInfo();
-
-	res.status(200).json(networkname);
- }
-);
-
+    const networkname = await res.locals.ocean.aquarius.getVersionInfo()
+    res.status(200).json(networkname)
+  }
+)
 
 router.get(
-  "/brizo/status",
+  '/brizo/status',
 
   async (req, res, next) => {
-	var networkname=await res.locals.ocean.brizo.getVersionInfo();
-
-	res.status(200).json(networkname);
- }
-);
-
+    const networkname = await res.locals.ocean.brizo.getVersionInfo()
+    res.status(200).json(networkname)
+  }
+)
 
 // export default router;
 exports.router = router
