@@ -2,9 +2,11 @@ import networkRouter from "./networkRouter";
 import generalapis from "./generalapis";
 import express from "express";
 
-const router = express.Router()
+const indexRouter = express.Router()
 
-router.use('/assets', require('./assets.router.js').assetsRouter);
+indexRouter.use('/assets', require('./assets.router.js').router);
+indexRouter.use('/network', require('./networkRouter').router);
+indexRouter.use('/general', require('./generalapis').router);
 
 
-export { networkRouter, generalapis, router};
+export { indexRouter };

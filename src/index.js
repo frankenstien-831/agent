@@ -1,5 +1,6 @@
+
 import express, { urlencoded, json } from "express";
-import { networkRouter, generalapis } from "./routes/index.router";
+import { networkRouter, generalapis, indexRouter } from "./routes/index.router";
 import { handleErrors } from "./middlewares";
 var winston = require('./config/winston');
 var expressWinston = require('express-winston');
@@ -61,8 +62,7 @@ app.use((req, res, next) => {
     Routes
   -----------------------------------*/
 winston.info("Building routes")
-app.use("/api/network", networkRouter);
-app.use("/", generalapis);
+app.use("/api", indexRouter);
 app.use(handleErrors);
 
 //rate limits
@@ -76,7 +76,6 @@ app.use("/network/publish", apiLimiter);
 app.use("/network/publishddo", apiLimiter);
 
 console.log(listEndpoints(app));
-winston.info(listEndpoints(app))
 
 /*-----------------------------------
     Start the server

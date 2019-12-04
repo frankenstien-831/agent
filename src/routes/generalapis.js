@@ -264,4 +264,6 @@ router.post(
 );
 
 
-export default router;
+// export default router;
+
+exports.router = router;
