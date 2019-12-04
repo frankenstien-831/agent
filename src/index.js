@@ -2,13 +2,16 @@ import express, { urlencoded, json } from "express";
 import { networkRouter, generalapis } from "./routes/index.router";
 import { handleErrors } from "./middlewares";
 var winston = require('./config/winston');
+var expressWinston = require('express-winston');
 const morgan = require('morgan');
 const rateLimit = require("express-rate-limit");
 import { checkAquarius, checkBrizo } from "./models/checkOcean"
 import { initializeOceanNetwork, provider } from "./models/initializeOcean"
-import { exitOnError } from "winston";
+// import { exitOnError } from "winston";
 require('dotenv').load();
-const util = require('util')
+// const util = require('util')
+const listEndpoints = require('express-list-endpoints')
+var expressWinston = require('express-winston');
 
 /*-----------------------------------
     Instantiate the Ocean connection
@@ -71,6 +74,9 @@ const apiLimiter = rateLimit({
 // only apply to requests that begin with /api/
 app.use("/network/publish", apiLimiter);
 app.use("/network/publishddo", apiLimiter);
+
+console.log(listEndpoints(app));
+winston.info(listEndpoints(app))
 
 /*-----------------------------------
     Start the server
