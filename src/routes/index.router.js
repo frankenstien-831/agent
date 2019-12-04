@@ -1,12 +1,12 @@
-import networkRouter from "./networkRouter";
-import generalapis from "./generalapis";
+import networkRouter from "./network.router";
+import generalapis from "./general.router";
 import express from "express";
 
 const indexRouter = express.Router()
 
 indexRouter.use('/assets', require('./assets.router.js').router);
-indexRouter.use('/network', require('./networkRouter').router);
-indexRouter.use('/general', require('./generalapis').router);
+indexRouter.use('/network', require('./network.router').router);
+indexRouter.use('/general', require('./general.router').router);
 
 
 export { indexRouter };

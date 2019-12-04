@@ -136,7 +136,7 @@ router.post(
 router.get(
     "/searchquery",
     async (req, res, next) => {
-        res.status(200).json("TO BE IMPLEMENTED");
+        res.status(501).json("TO BE IMPLEMENTED");
     }
 );
 
