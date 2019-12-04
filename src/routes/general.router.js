@@ -2,7 +2,6 @@ import express from "express";
 import validate from "../middlewares/validator";
 import fetch, { BodyInit, RequestInit, Response } from 'node-fetch'
 var b64enc = require("base64-arraybuffer");
-var sample_metadata = require("../schemas/sample_metadata.js");
 
 const router = express.Router();
 
@@ -136,130 +135,110 @@ router.post(
 router.get(
     "/searchquery",
     async (req, res, next) => {
-        res.status(501).json("TO BE IMPLEMENTED");
+        res.status(301).json("Refactored to /assets");
     }
 );
 
-
-router.get(
-    "/samplemetadata",
-    async (req, res, next) => {
-        res.status(200).json(sample_metadata.sample_metadata);
-    }
-);
 
 
 router.get(
     "/searchtext",
     async (req, res, next) => {
-        const query = {
-            offset: req.query.offset || 1,
-            page: req.query.page || 1,
-            query: {
-                value: 1
-            },
-            sort: {
-                value: req.query.sort || 1
-            },
-            text: req.query.text
-        }
-        var results = await res.locals.ocean.aquarius.queryMetadataByText(query);
-        res.status(200).json(results);
+        res.status(301).json("Refactored to /assets");
     }
 );
+
 router.get(
     "/resolve",
     async (req, res, next) => {
-        var results = await res.locals.ocean.aquarius.retrieveDDO(req.query.did);
-        res.status(200).json(results);
-
+        res.status(301).json("Refactored to /assets");
     }
 );
 
-router.post(
-    "/consume",
+router.post("/consume",
     async (req, res, next) => {
-        var responseObj = Array();
-        const accounts = await res.locals.ocean.accounts.list()
-        var did = req.body.did;
-        const consumeAsset = await res.locals.ocean.assets.resolve(did);
-        const service = consumeAsset.findServiceByType('Access')
-        const agreementId = await res.locals.ocean.assets.order(
-            consumeAsset.id,
-            service.serviceDefinitionId,
-            accounts[0]
-        )
-        var index = -1;
-        var consumerAccount = accounts[0]
-        var resultPath = './downloads/';
-        var useSecretStore = 0;
-        const ddo = consumeAsset;
-        const { metadata } = ddo.findServiceByType('Metadata')
+        res.status(301).json("Refactored to /assets");
+        //     var responseObj = Array();
+        //     const accounts = await res.locals.ocean.accounts.list()
+        //     var did = req.body.did;
+        //     const consumeAsset = await res.locals.ocean.assets.resolve(did);
+        //     const service = consumeAsset.findServiceByType('Access')
+        //     const agreementId = await res.locals.ocean.assets.order(
+        //         consumeAsset.id,
+        //         service.serviceDefinitionId,
+        //         accounts[0]
+        //     )
+        //     var index = -1;
+        //     var consumerAccount = accounts[0]
+        //     var resultPath = './downloads/';
+        //     var useSecretStore = 0;
+        //     const ddo = consumeAsset;
+        //     const { metadata } = ddo.findServiceByType('Metadata')
 
-        const accessService = ddo.findServiceById(service.serviceDefinitionId)
+        //     const accessService = ddo.findServiceById(service.serviceDefinitionId)
 
-        const { files } = metadata.base
+        //     const { files } = metadata.base
 
-        const { serviceEndpoint } = accessService
+        //     const { serviceEndpoint } = accessService
 
-        if (!serviceEndpoint) {
-            throw new Error(
-                'Consume asset failed, service definition is missing the `serviceEndpoint`.'
-            )
-        }
-        const signature =
-            (await consumerAccount.getToken()) ||
-            (await res.locals.ocean.utils.signature.signText(
-                noZeroX(agreementId),
-                consumerAccount.getId()
-            ))
+        //     if (!serviceEndpoint) {
+        //         throw new Error(
+        //             'Consume asset failed, service definition is missing the `serviceEndpoint`.'
+        //         )
+        //     }
+        //     const signature =
+        //         (await consumerAccount.getToken()) ||
+        //         (await res.locals.ocean.utils.signature.signText(
+        //             noZeroX(agreementId),
+        //             consumerAccount.getId()
+        //         ))
 
-        for (const fileitem of files) {
+        //     for (const fileitem of files) {
 
-            var newfile = new Object();
-            newfile.ContentType = fileitem.ContentType;
-            newfile.index = fileitem.index;
-            newfile.contentLength = fileitem.contentLength;
-            newfile.compression = fileitem.compression;
-            let consumeUrl = serviceEndpoint
-            consumeUrl += `?index=${fileitem.index}`
-            consumeUrl += `&serviceAgreementId=${noZeroX(agreementId)}`
-            consumeUrl += `&consumerAddress=${consumerAccount.getId()}`
-            consumeUrl += `&signature=${signature}`
+        //         var newfile = new Object();
+        //         newfile.ContentType = fileitem.ContentType;
+        //         newfile.index = fileitem.index;
+        //         newfile.contentLength = fileitem.contentLength;
+        //         newfile.compression = fileitem.compression;
+        //         let consumeUrl = serviceEndpoint
+        //         consumeUrl += `?index=${fileitem.index}`
+        //         consumeUrl += `&serviceAgreementId=${noZeroX(agreementId)}`
+        //         consumeUrl += `&consumerAddress=${consumerAccount.getId()}`
+        //         consumeUrl += `&signature=${signature}`
 
-            try {
-                const response = await fetch(consumeUrl, {
-                    method: 'GET',
-                    headers: {
-                        'Content-type': 'application/json'
-                    }
-                })
-                if (!response.ok) {
-                    throw new Error('Response error.')
-                }
-                let filename;
-                try {
-                    filename = response.headers.get('content-disposition').match(/attachment;filename=(.+)/)[1];
-                } catch (e) {
-                    try {
-                        filename = url.split('/').pop()
-                    } catch (e) {
-                        filename = `file${index}`
-                    }
-                }
-                newfile.filename = filename;
-                newfile.data = b64enc.encode(await response.arrayBuffer())
-                responseObj.push(newfile);
+        //         try {
+        //             const response = await fetch(consumeUrl, {
+        //                 method: 'GET',
+        //                 headers: {
+        //                     'Content-type': 'application/json'
+        //                 }
+        //             })
+        //             if (!response.ok) {
+        //                 throw new Error('Response error.')
+        //             }
+        //             let filename;
+        //             try {
+        //                 filename = response.headers.get('content-disposition').match(/attachment;filename=(.+)/)[1];
+        //             } catch (e) {
+        //                 try {
+        //                     filename = url.split('/').pop()
+        //                 } catch (e) {
+        //                     filename = `file${index}`
+        //                 }
+        //             }
+        //             newfile.filename = filename;
+        //             newfile.data = b64enc.encode(await response.arrayBuffer())
+        //             responseObj.push(newfile);
 
 
-            } catch (e) {
-                console.error('Error consuming assets')
-                console.error(e)
-                throw e
-            }
-        }
-        console.log('Files consumed')
-        res.status(200).json(responseObj);
+        //         } catch (e) {
+        //             console.error('Error consuming assets')
+        //             console.error(e)
+        //             throw e
+        //         }
+        //     }
+        //     console.log('Files consumed')
+        //     res.status(200).json(responseObj);
     }
 );
 
