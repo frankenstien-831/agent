@@ -16,13 +16,7 @@ router.post('/create',
         return res.status(501).send("Not implemented.");
     });
 
-router.get('/resolve',
-    async (req, res) => {
-        return res.status(501).send("Not implemented.");
-    });
-
-router.get(
-    "/resolve",
+router.get( "/resolve",
     async (req, res, next) => {
         var results = await res.locals.ocean.aquarius.retrieveDDO(req.query.did);
         res.status(200).json(results);
@@ -46,7 +40,7 @@ router.get('/order',
 
 router.get('/consume',
     async (req, res, next) => {
-        var responseObj = assetsController.GET_consume(req, res);
+        var responseObj = await assetsController.GET_consume(req, res);
 
         console.log('Files consumed')
         res.status(200).json(responseObj);

@@ -20,7 +20,6 @@ exports.GET_searchtext = async function (req, res, text) {
     return res.locals.ocean.aquarius.queryMetadataByText(query);
 }
 
-
 function zeroXTransformer(input, zeroOutput) {
     const { valid, output } = inputMatch(
         input,
