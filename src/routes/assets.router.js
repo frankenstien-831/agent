@@ -10,5 +10,4 @@ router.post('/create',
         return res.status(501).send("Not implemented.");
 });
 
-
 exports.assetsRouter = router;
