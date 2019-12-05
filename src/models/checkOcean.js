@@ -5,11 +5,13 @@ export function checkAquarius(aquariusUrl) {
   request.get(aquariusUrl, function(err, res, body) {
     try {
       if (err) {
+        console.error(err);
         console.error(`Can't connect to Aquarius at ${aquariusUrl}`)
         process.exit()
       }
 
       if (res.statusCode !== 200) {
+        console.error(err);
         console.error(`Can't connect to Aquarius at ${aquariusUrl}`)
         process.exit()
       }
