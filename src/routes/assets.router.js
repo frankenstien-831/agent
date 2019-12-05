@@ -63,9 +63,6 @@ router.get('/searchtext', async (req, res, next) => {
   res.status(200).json(searchResult)
 })
 
-router.get('/samplemetadata', async (req, res, next) => {
-  const sampleMetadata = assetsController.GET_sampleMetadata()
-  res.status(200).json(sampleMetadata)
-})
+
 
 exports.router = router
