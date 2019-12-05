@@ -90,7 +90,7 @@ exports.GET_consume = async function(req, res) {
           .match(/attachment;filename=(.+)/)[1]
       } catch (e) {
         try {
-          filename = url.split('/').pop()
+          filename = consumeUrl.split('/').pop()
         } catch (e) {
           filename = `file${index}`
         }
