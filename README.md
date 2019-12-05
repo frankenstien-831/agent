@@ -1,11 +1,11 @@
 [![banner](https://raw.githubusercontent.com/oceanprotocol/art/master/github/repo-banner%402x.png)](https://oceanprotocol.com)
 
-<h1 align="center">API</h1>
+<h1 align="center">Agent</h1>
 
-> 🏄‍♀️ REST API to explore, download, and publish open data sets.
+> 🏄‍♀️ The Ocean Agent provides a single interface for an Ocean Protocol stack via a REST API to explore, download, and publish open data sets.
 > https://api.oceanprotocol.com
 
-[![Build Status](https://flat.badgen.net/travis/oceanprotocol/rest-api?icon=travis)](https://travis-ci.com/oceanprotocol/rest-api)
+[![Build Status](https://flat.badgen.net/travis/oceanprotocol/agent?icon=travis)](https://travis-ci.com/oceanprotocol/rest-api)
 [![js oceanprotocol](https://flat.badgen.net/badge/js/oceanprotocol/7b1173)](https://github.com/oceanprotocol/eslint-config-oceanprotocol)
 
 - [Architecture](#architecture)
@@ -61,7 +61,7 @@ npm run serve
 ## License
 
 ```
-Copyright 2018 Ocean Protocol Foundation Ltd.
+Copyright 2019 Ocean Protocol Foundation Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

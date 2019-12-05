@@ -1,7 +1,7 @@
 {
   "name": "@oceanprotocol/agent",
   "version": "0.0.1",
-  "description": "Official Ocean Protocol REST API to register, publish, consume and search assets.",
+  "description": "The Ocean Agent provides a single interface for an Ocean Protocol stack via a REST API to explore, download, and publish open data sets.",
   "main": "dist/server.js",
   "scripts": {
     "start": "nodemon src/index.js --exec babel-node",
