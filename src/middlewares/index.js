@@ -1,7 +1,4 @@
-import { handleErrors } from './errorHandler';
-import { winston_logger } from './winston_logger';
+import { handleErrors } from './errorHandler'
+import { winstonLogger } from './winstonLogger'
 
-export  {
-    handleErrors,
-    winston_logger,
-}
+export { handleErrors, winstonLogger }

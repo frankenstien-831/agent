@@ -1,4 +1,15 @@
 {
-  "extends": ["oceanprotocol", "prettier/standard", "plugin:prettier/recommended"],
-  "plugins": ["prettier"]
+  "parser": "babel-eslint",
+  "extends": [
+    "oceanprotocol",
+    "plugin:prettier/recommended",
+    "prettier/standard"
+  ],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  },
+  "env": {
+    "es6": true
+  }
 }

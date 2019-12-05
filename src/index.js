@@ -1,131 +1,106 @@
-import express, { urlencoded, json } from "express";
-import { networkRouter, generalapis } from "./routes";
-import { handleErrors } from "./middlewares";
-// import { winston_logger } from "./middlewares";
-var winston = require('./config/winston');
-const morgan = require('morgan');
-const rateLimit = require("express-rate-limit");
-var request = require('request');
-import { initializeOceanNetwork, provider } from "./init_ocean"
-import { exitOnError } from "winston";
-require('dotenv').load();
-const util = require('util')
+import 'dotenv/config'
 
-/*-----------------------------------
-    Instantiate the Ocean connection 
-  -----------------------------------*/
-winston.info("Instantiating Ocean Squid library")
-var ocean;
-(async () => {
-  ocean = await initializeOceanNetwork();
-  // Assert Aquarius connection
-  request.get(ocean.aquarius.url, function (err, res, body) {
-    try {
-      if (err) {
-        console.error(`Can't connect to Aquarius at ${ocean.aquarius.url}`);
-        process.exit()
-      }
+import express, { urlencoded, json } from 'express'
+import morgan from 'morgan'
+import rateLimit from 'express-rate-limit'
+import listEndpoints from 'express-list-endpoints'
+import { indexRouter } from './routes/index.router'
+import { handleErrors } from './middlewares'
+import winston from './config/winston'
+import { checkAquarius, checkBrizo } from './models/checkOcean'
+import { initializeOceanNetwork, provider } from './models/initializeOcean'
 
-      if (res.statusCode != 200) {
-        console.error(`Can't connect to Aquarius at ${ocean.aquarius.url}`);
-        process.exit()
-      }
+/* -----------------------------------
+    Instantiate the Ocean connection
+  ----------------------------------- */
 
-      var status = JSON.parse(body);
-      if (!status.hasOwnProperty('version')) {
-        console.error(`Improper status endpoint on ${ocean.aquarius.url}`);
-        process.exit()
-      }
-      winston.info(`Ocean connected to Aquarius ${status.version}`);
-    }
-    catch (error) {
-      console.error(error);
-      process.exit();
-    }
-  });
+winston.info('Instantiating Ocean Squid library')
 
-  // Assert Brizo connection
-  request.get(ocean.brizo.url, function (err, res, body) {
-    try {
-      if (err) {
-        console.log(`Can't connect to Brizo at ${ocean.brizo.url}`);
-        process.exit()
-      }
-
-      if (res.statusCode != 200) {
-        console.error(`Can't connect to Brizo at ${ocean.brizo.url}`);
-        process.exit()
-      }
-
-      var status = JSON.parse(body);
-      if (!status.hasOwnProperty('version')) {
-        console.error(`Improper status endpoint on ${ocean.brizo.url}`);
-        process.exit()
-      }
-      winston.info(`Ocean connected to Brizo ${status.version}`);
-    }
-    catch (error) {
-      console.error(error);
-      process.exit();
-    }
-  });
-
+let ocean
+;(async () => {
+  ocean = await initializeOceanNetwork()
+  // Check connections
+  checkAquarius(ocean.aquarius.url)
+  checkBrizo(ocean.brizo.url)
 })().catch(err => {
-  console.log("Failed to connect to Ocean network", err);
-  process.exit();
-});
+  console.log('Failed to connect to Ocean network', err)
+  process.exit()
+})
 
-/*-----------------------------------
+/* -----------------------------------
     Build the Express app + middleware
-  -----------------------------------*/
-winston.info("Building Express application")
-const app = express();
+  ----------------------------------- */
+
+winston.info('Building Express application')
+
+const app = express()
 
 // Logging with morgan and winston
-app.use(morgan('combined', { stream: winston.stream }));
+app.use(morgan('combined', { stream: winston.stream }))
 
 // parse application/x-www-form-urlencoded
-app.use(urlencoded({ extended: true }));
+app.use(urlencoded({ extended: true }))
+
+// app.use(expressWinston.logger({
+//       transports: [
+//         new winston.transports.Console()
+//       ],
+//       format: winston.format.combine(
+//         winston.format.colorize(),
+//         winston.format.json()
+//       ),
+//       meta: true, // optional: control whether you want to log the meta data about the request (default to true)
+//       msg: "HTTP {{req.method}} {{req.url}}", // optional: customize the default logging message. E.g. "{{res.statusCode}} {{req.method}} {{res.responseTime}}ms {{req.url}}"
+//       expressFormat: true, // Use the default Express/morgan request formatting. Enabling this will override any msg if true. Will only output colors with colorize set to true
+//       colorize: false, // Color the text and status code, using the Express/morgan color palette (text: gray, status: default green, 3XX cyan, 4XX yellow, 5XX red).
+//       ignoreRoute: function (req, res) { return false; } // optional: allows to skip some log messages based on request and/or response
+//     }));
 
 // parse application/json
-app.use(json());
+app.use(json())
 
 // configure CORS headers
 app.use((req, res, next) => {
-  res.locals.ocean = ocean;
-  res.locals.provider = provider;
-  res.header("Access-Control-Allow-Origin", "*");
+  res.locals.ocean = ocean
+  res.locals.provider = provider
+  res.header('Access-Control-Allow-Origin', '*')
   res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-  next();
-});
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  )
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
+  next()
+})
 
-/*-----------------------------------
+/* -----------------------------------
     Routes
-  -----------------------------------*/
-winston.info("Building routes")
-app.use("/network", networkRouter);
-app.use("/", generalapis);
-app.use(handleErrors);
+  ----------------------------------- */
 
-//rate limits
+winston.info('Building routes')
+
+app.use('/api', indexRouter)
+app.use(handleErrors)
+
+// rate limits
 const apiLimiter = rateLimit({
   windowMs: 5 * 60 * 1000, // 5 minutes
   max: 15
-});
+})
 
 // only apply to requests that begin with /api/
-app.use("/network/publish", apiLimiter);
-app.use("/network/publishddo", apiLimiter);
+app.use('/network/publish', apiLimiter)
+app.use('/network/publishddo', apiLimiter)
 
-/*-----------------------------------
+console.log(listEndpoints(app))
+
+/* -----------------------------------
     Start the server
-  -----------------------------------*/
-winston.info("Starting server")
-const server = app.listen(process.env.PORT || 4040, () => {
-  winston.info(`Server started on Port ${process.env.PORT || 4040}`);
-}).on('error', console.log);
+  ----------------------------------- */
 
+winston.info('Starting server')
+
+app
+  .listen(process.env.PORT || 4040, () => {
+    winston.info(`Server started on Port ${process.env.PORT || 4040}`)
+  })
+  .on('error', console.log)
