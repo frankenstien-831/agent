@@ -3,9 +3,9 @@
 <h1 align="center">Agent</h1>
 
 > 🏄‍♀️ The Ocean Agent provides a single interface for an Ocean Protocol stack via a REST API to explore, download, and publish open data sets.
-> https://api.oceanprotocol.com
+> https://agent.oceanprotocol.com
 
-[![Build Status](https://flat.badgen.net/travis/oceanprotocol/agent?icon=travis)](https://travis-ci.com/oceanprotocol/rest-api)
+[![Build Status](https://flat.badgen.net/travis/oceanprotocol/agent?icon=travis)](https://travis-ci.com/oceanprotocol/agent)
 [![js oceanprotocol](https://flat.badgen.net/badge/js/oceanprotocol/7b1173)](https://github.com/oceanprotocol/eslint-config-oceanprotocol)
 
 - [Architecture](#architecture)
@@ -32,15 +32,29 @@ The following resources are defined;
 
 ## Development
 
+While you can develop against Nile or Pacific with remote instances, the default is to run against a locally running Spree network orchestrated with Barge:
+
 ```bash
-npm i
+git clone git@github.com:oceanprotocol/barge.git
+cd barge
+
+# startup with local Spree node
+./start_ocean.sh --no-commons
+```
+
+Once Barge is running a Spree network, you can continue in this project:
+
+```bash
+# populate .env file
+cp .env.example .env
+
+# install dependencies
+npm install
+
 # will copy artifacts from running barge on spree to local folder
 ./scripts/keeper.sh
 
-# populate .env file
-cp .env.nile .env
-
-# start live-relading dev server
+# start live-reloading dev server
 npm start
 ```
 
