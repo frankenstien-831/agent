@@ -12,6 +12,8 @@
 - [Development](#development)
 - [Production build](#production-build)
 - [Deployment](#deployment)
+- [Releases](#releases)
+- [Changelog](#changelog)
 - [License](#license)
 
 ## Architecture
@@ -75,6 +77,30 @@ npm run serve
 ## Deployment
 
 ...
+
+## Releases
+
+From a clean `master` branch you can run any release task doing the following:
+
+- bumps the project version in `package.json`
+- auto-generates and updates the CHANGELOG.md file from commit messages
+- creates a Git tag
+- commits and pushes everything
+- creates a GitHub release with commit messages as description
+
+You can execute the script using {major|minor|patch} as first argument to bump the version accordingly:
+
+- To bump a patch version: `npm run release`
+- To bump a minor version: `npm run release minor`
+- To bump a major version: `npm run release major`
+
+By creating the Git tag with these tasks, Travis will trigger a new Kubernetes live deployment automatically, after a successful tag build.
+
+For the GitHub releases steps a GitHub personal access token, exported as `GITHUB_TOKEN` is required. [Setup](https://github.com/release-it/release-it#github-releases)
+
+## Changelog
+
+See the [CHANGELOG.md](./CHANGELOG.md) file. This file is auto-generated during the above mentioned release process.
 
 ## License
 

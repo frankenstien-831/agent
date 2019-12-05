@@ -10,7 +10,8 @@
     "test": "npm run lint && ava",
     "serve": "node dist/index.js",
     "data": "npm run build && node dist/insertData.js",
-    "format": "prettier ./src/**/*.{css,yml,js,jsx,ts,tsx,json} --write"
+    "format": "prettier ./src/**/*.{css,yml,js,jsx,ts,tsx,json} --write",
+    "release": "release-it --non-interactive"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,21 @@
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.1",
     "nodemon": "^2.0.1",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "release-it": "^12.4.3"
+  },
+  "release-it": {
+    "hooks": {
+      "after:bump": "npm run changelog"
+    },
+    "git": {
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": true
+    },
+    "npm": {
+      "publish": false
+    }
   }
 }
