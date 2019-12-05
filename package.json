@@ -10,7 +10,7 @@
     "test": "npm run lint && ava",
     "serve": "node dist/index.js",
     "data": "npm run build && node dist/insertData.js",
-    "format": "prettier ./src/**/*.{css,yml,js,jsx,ts,tsx,json} --write",
+    "format": "prettier ./{src,scripts,test}/**/*.{css,yml,js,jsx,ts,tsx,json} --write",
     "release": "release-it --non-interactive"
   },
   "repository": {
