@@ -1,14 +1,14 @@
+import 'dotenv/config'
+
 import express, { urlencoded, json } from 'express'
+import morgan from 'morgan'
+import rateLimit from 'express-rate-limit'
+import listEndpoints from 'express-list-endpoints'
 import { indexRouter } from './routes/index.router'
 import { handleErrors } from './middlewares'
 import winston from './config/winston'
-import morgan from 'morgan'
-import rateLimit from 'express-rate-limit'
 import { checkAquarius, checkBrizo } from './models/checkOcean'
 import { initializeOceanNetwork, provider } from './models/initializeOcean'
-import listEndpoints from 'express-list-endpoints'
-
-require('dotenv').load()
 
 /* -----------------------------------
     Instantiate the Ocean connection

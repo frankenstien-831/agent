@@ -37,7 +37,11 @@ npm i
 # will copy artifacts from running barge on spree to local folder
 ./scripts/keeper.sh
 
-npm run dev
+# populate .env file
+cp .env.nile .env
+
+# start live-relading dev server
+npm start
 ```
 
 ## Production build
