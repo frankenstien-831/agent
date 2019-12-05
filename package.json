@@ -11,6 +11,7 @@
     "serve": "node dist/index.js",
     "data": "npm run build && node dist/insertData.js",
     "format": "prettier ./{src,scripts,test}/**/*.{css,yml,js,jsx,ts,tsx,json} --write",
+    "changelog": "auto-changelog -p",
     "release": "release-it --non-interactive"
   },
   "repository": {
@@ -36,6 +37,7 @@
     "@babel/cli": "^7.7.4",
     "@babel/node": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
+    "auto-changelog": "^1.16.2",
     "ava": "^2.4.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
