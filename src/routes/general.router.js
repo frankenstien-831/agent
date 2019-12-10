@@ -39,23 +39,38 @@ router.post(
     let result
 
     // console.log(req.body.metadata);
+    const {
+      name,
+      author,
+      license,
+      files,
+      price,
+      type,
+      description,
+      copyrightHolder,
+      categories
+    } = req.body
 
     try {
       const newAsset = {
         // OEP-08 Attributes
         // https://github.com/oceanprotocol/OEPs/tree/master/8
-        base: Object.assign(AssetModel.base, {
-          name: req.body.name,
-          description: req.body.description,
+        main: {
+          ...AssetModel.main,
+          name,
           dateCreated: new Date().toISOString().split('.')[0] + 'Z', // remove milliseconds
-          author: req.body.author,
-          license: req.body.license,
-          copyrightHolder: req.body.copyrightHolder,
-          files: req.body.files,
-          price: req.body.price,
-          type: req.body.type,
-          categories: [req.body.categories]
-        })
+          author,
+          license,
+          files,
+          price,
+          type
+        },
+        additionalAttributes: {
+          ...AssetModel.additionalAttributes,
+          description,
+          copyrightHolder,
+          categories: [categories]
+        }
       }
 
       const asset = await res.locals.ocean.assets.create(newAsset, accounts[0])

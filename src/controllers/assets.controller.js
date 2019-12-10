@@ -28,10 +28,10 @@ exports.GET_consume = async function(req, res) {
   const accounts = await res.locals.ocean.accounts.list()
   const { did } = req.body
   const consumeAsset = await res.locals.ocean.assets.resolve(did)
-  const service = consumeAsset.findServiceByType('Access')
+  const service = consumeAsset.findServiceByType('access')
   const agreementId = await res.locals.ocean.assets.order(
     consumeAsset.id,
-    service.serviceDefinitionId,
+    service.index,
     accounts[0]
   )
   const index = -1
@@ -39,9 +39,9 @@ exports.GET_consume = async function(req, res) {
   // const resultPath = './downloads/'
   // const useSecretStore = 0
   const ddo = consumeAsset
-  const { metadata } = ddo.findServiceByType('Metadata')
-  const accessService = ddo.findServiceById(service.serviceDefinitionId)
-  const { files } = metadata.base
+  const { attributes } = ddo.findServiceByType('metadata')
+  const accessService = ddo.findServiceById(service.index)
+  const { files } = attributes.main
   const { serviceEndpoint } = accessService
 
   if (!serviceEndpoint) {
@@ -65,7 +65,7 @@ exports.GET_consume = async function(req, res) {
     newfile.compression = fileitem.compression
     let consumeUrl = serviceEndpoint
     consumeUrl += `?index=${fileitem.index}`
-    consumeUrl += `&serviceAgreementId=${noZeroX(agreementId)}`
+    consumeUrl += `&index=${noZeroX(agreementId)}`
     consumeUrl += `&consumerAddress=${consumerAccount.getId()}`
     consumeUrl += `&signature=${signature}`
 
