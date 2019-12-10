@@ -60,6 +60,30 @@ npm install
 npm start
 ```
 
+## Testing
+
+For running tests, a locally running Ocean network is required. To do so before running the tests, use [Barge](https://github.com/oceanprotocol/barge):
+
+```bash
+git clone https://github.com/oceanprotocol/barge
+cd barge
+
+./start_ocean.sh --no-commons
+```
+
+In another terminal window, run this script and export the seed phrase:
+
+```bash
+# copies the contract artifacts once the local Ocean network is up and running
+./scripts/keeper.sh
+```
+
+Once everything is up, run the tests:
+
+```bash
+npm test
+```
+
 ## Production build
 
 To create a production build, execute:

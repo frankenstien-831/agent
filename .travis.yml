@@ -7,7 +7,17 @@ cache: npm
 
 # will run `npm install` automatically here
 
+before_script:
+  - git clone https://github.com/oceanprotocol/barge
+  - cd barge
+  - export KEEPER_OWNER_ROLE_ADDRESS="0xe2DD09d719Da89e5a3D0F2549c7E24566e947260"
+  - rm -rf "${HOME}/.ocean/keeper-contracts/artifacts"
+  - bash -x start_ocean.sh --no-commons --no-dashboard 2>&1 > start_ocean.log &
+  - cd ..
+  - cp .env.example .env
+
 script:
+  - ./scripts/keeper.sh
   - npm test
   - npm run build
 

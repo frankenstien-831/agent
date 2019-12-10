@@ -6,7 +6,9 @@ if [ "${LOCAL_CONTRACTS}" = "true" ]; then
     sleep 2
   done
 fi
+
 echo "Starting Agent..."
 cd /usr/src/app/
+
 npm run build
 npm run serve
