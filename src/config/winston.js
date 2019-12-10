@@ -13,10 +13,10 @@ const options = {
     colorize: false
   },
   console: {
-     level: 'info',
-     handleExceptions: true,
+    level: 'info',
+    handleExceptions: true,
     // json: false,
-     colorize: true,
+    colorize: true,
     format: winston.format.simple()
   }
 }
