@@ -11,10 +11,23 @@ ENV secretstoreUri='http://localhost:12001'
 EXPOSE 4040
 
 # Create app directory
-COPY . /usr/src/app
+#COPY . /usr/src/app
+#WORKDIR /usr/src/app
+
+#RUN npm install && \
+#    npm run build
+
+
+COPY package*.json /usr/src/app/
 WORKDIR /usr/src/app
+RUN npm install -g npm serve \
+    && npm install \
+    && npm cache clean --force
 
-RUN npm install && \
-    npm run build
+COPY . /usr/src/app
+RUN npm run build
 
-ENTRYPOINT ["npm", "run", "serve"]
+
+
+
+ENTRYPOINT ["/usr/src/app/docker-entrypoint.sh"]
