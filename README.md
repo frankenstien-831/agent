@@ -6,10 +6,13 @@
 > https://agent.oceanprotocol.com
 
 [![Build Status](https://flat.badgen.net/travis/oceanprotocol/agent?icon=travis)](https://travis-ci.com/oceanprotocol/agent)
+[![Maintainability](https://api.codeclimate.com/v1/badges/486682d1818b5ef46f3d/maintainability)](https://codeclimate.com/github/oceanprotocol/agent/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/486682d1818b5ef46f3d/test_coverage)](https://codeclimate.com/github/oceanprotocol/agent/test_coverage)
 [![js oceanprotocol](https://flat.badgen.net/badge/js/oceanprotocol/7b1173)](https://github.com/oceanprotocol/eslint-config-oceanprotocol)
 
 - [Architecture](#architecture)
 - [Development](#development)
+- [Testing](#testing)
 - [Production build](#production-build)
 - [Deployment](#deployment)
 - [Releases](#releases)
@@ -71,7 +74,7 @@ cd barge
 ./start_ocean.sh --no-commons
 ```
 
-In another terminal window, run this script and export the seed phrase:
+In another terminal window, run this script:
 
 ```bash
 # copies the contract artifacts once the local Ocean network is up and running
