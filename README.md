@@ -94,7 +94,7 @@ You can execute the script using {major|minor|patch} as first argument to bump t
 - To bump a minor version: `npm run release minor`
 - To bump a major version: `npm run release major`
 
-By creating the Git tag with these tasks, Travis will trigger a new Kubernetes live deployment automatically, after a successful tag build.
+By creating the Git tag with these tasks, a new Docker Hub build will be triggered.
 
 For the GitHub releases steps a GitHub personal access token, exported as `GITHUB_TOKEN` is required. [Setup](https://github.com/release-it/release-it#github-releases)
 
