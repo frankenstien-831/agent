@@ -46,13 +46,14 @@ cd barge
 
 
 ## ENV Vars
-
+|ENV          | Description       |
+|-------------|-------------------|
 |PRIVATE_KEY| Private key for the eth address that the agent will use to publish/consume. You can use a 12 word seed.|
-|nodeUri|
-|aquariusUri|
-|brizoUri|
-|brizoAddress|
-|secretstoreUri|
+|nodeUri|                         |
+|aquariusUri|                     |
+|brizoUri|                        |
+|brizoAddress|                    |
+|secretstoreUri|                  |
 
 ## Deployment
 
