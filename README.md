@@ -34,7 +34,7 @@ The following resources are defined;
 
 ## Development
 
-While you can develop against Nile or Pacific with remote instances, the default is to run against a locally running Spree network orchestrated with Barge:
+Agent is already integrated in Barge, so you can use it for develop against Spree, Nile or Pacific with remote instances
 
 ```bash
 git clone git@github.com:oceanprotocol/barge.git
@@ -44,35 +44,15 @@ cd barge
 ./start_ocean.sh --no-commons
 ```
 
-Once Barge is running a Spree network, you can continue in this project:
 
-```bash
-# populate .env file
-cp .env.example .env
+## ENV Vars
 
-# install dependencies
-npm install
-
-# will copy artifacts from running barge on spree to local folder
-./scripts/keeper.sh
-
-# start live-reloading dev server
-npm start
-```
-
-## Production build
-
-To create a production build, execute:
-
-```bash
-npm run build
-```
-
-This will create the build output into `./dist`. You can then run and serve from this build output with:
-
-```bash
-npm run serve
-```
+|PRIVATE_KEY| Private key for the eth address that the agent will use to publish/consume. You can use a 12 word seed.|
+|nodeUri|
+|aquariusUri|
+|brizoUri|
+|brizoAddress|
+|secretstoreUri|
 
 ## Deployment
 
