@@ -1,0 +1,1010 @@
+{
+	"info": {
+		"_postman_id": "4c2b2369-6dc4-4d82-b1da-d7ed1d3566ab",
+		"name": "REST API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/network",
+			"item": [
+				{
+					"name": "/network",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "025e5358-4c1a-453c-80e9-e491cea5abc6",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/network/aquarius/status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3169663f-2f15-404f-9208-328d133e1973",
+								"exec": [
+									"console.log(\"HELLO TEST\")",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/network/aquarius/status",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"network",
+								"aquarius",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/network/brizo/status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3169663f-2f15-404f-9208-328d133e1973",
+								"exec": [
+									"console.log(\"HELLO TEST\")",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/network/brizo/status",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"network",
+								"brizo",
+								"status"
+							]
+						},
+						"description": "Get request to register Brizo network"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1f960e77-52f0-4e6c-98a7-9bc7df8a0779",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "caca5710-ae3d-4ae2-8877-f0f4e8cf4a2f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "/assets",
+			"item": [
+				{
+					"name": "/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/assets/create",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"assets",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/resolve",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/assets/resolve?did={{DID_asset1}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"assets",
+								"resolve"
+							],
+							"query": [
+								{
+									"key": "did",
+									"value": "{{DID_asset1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/assets/search",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"assets",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/query",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/assets/query",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"assets",
+								"query"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/assets/order",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"assets",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/consume",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/assets/consume?did={{DID_asset1}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"assets",
+								"consume"
+							],
+							"query": [
+								{
+									"key": "did",
+									"value": "{{DID_asset1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/validate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/assets/validate",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"assets",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/owner",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/assets/owner",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"assets",
+								"owner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ownerList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/assets/ownerlist",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"assets",
+								"ownerlist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/comsumerList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/assets/consumerlist",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"assets",
+								"consumerlist"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Implementation of the ocean protocol Squid API\n\nocean.assets\n",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "25cc9ee7-3418-4597-adbe-c49a4988a32b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d16803b2-21a6-4195-bde0-a4ea51cc889e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "/agreements",
+			"item": [
+				{
+					"name": "/prepare",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/agreements/prepare",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"agreements",
+								"prepare"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/agreements/status",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"agreements",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/send",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/agreements/send",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"agreements",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/create",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/agreements/create",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"agreements",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ecf99b6c-a23b-459a-b8a1-8e6adbe6fce5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "401ecfe8-074e-4f53-844b-06e50b310348",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "/agent",
+			"item": [
+				{
+					"name": "/publishddo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8e1d7c25-504f-4f00-87bb-2a290ef62fb5",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"//postman.setEnvironmentVariable(\"DID_asset1\", jsonData);",
+									"pm.collectionVariables.set(\"DID_asset1\", jsonData);",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7118c82f-ce28-4536-a72e-252be7c99134",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n   \"publisher\":\"0xA88b468818501Cf5e49A613C9fA94c4830cF5D88\",\n   \"metadata\":{  \n      \"base\":{  \n         \"name\":\"10 Monkey Species Small\",\n         \"dateCreated\":\"2012-02-01T10:55:11Z\",\n         \"author\":\"Mario\",\n         \"license\":\"CC0: Public Domain\",\n         \"price\":\"0\",\n         \"files\":[  \n            {  \n               \"index\":0,\n               \"contentType\":\"application/zip\",\n               \"checksum\":\"2bf9d229d110d1976cdf85e9f3256c7f\",\n               \"checksumType\":\"MD5\",\n               \"contentLength\":12057507,\n               \"compression\":\"zip\",\n               \"encoding\":\"UTF-8\",\n               \"url\":\"https://s3.amazonaws.com/datacommons-seeding-us-east/10_Monkey_Species_Small/assets/training.zip\"\n            },\n            {  \n               \"index\":1,\n               \"contentType\":\"text/txt\",\n               \"checksum\":\"354d19c0733c47ef3a6cce5b633116b0\",\n               \"checksumType\":\"MD5\",\n               \"contentLength\":928,\n               \"url\":\"https://s3.amazonaws.com/datacommons-seeding-us-east/10_Monkey_Species_Small/assets/monkey_labels.txt\",\n               \"resourceId\":\"test\"\n            }\n         ],\n         \"checksum\":\"\",\n         \"categories\":[  \n            \"image\"\n         ],\n         \"tags\":[  \n            \"image data\",\n            \"classification\",\n            \"animals\"\n         ],\n         \"type\":\"dataset\",\n         \"description\":\"EXAMPLE ONLY \",\n         \"copyrightHolder\":\"Unknown\",\n         \"workExample\":\"image path, id, label\",\n         \"links\":[  \n            {  \n               \"name\":\"example model\",\n               \"url\":\"https://drive.google.com/open?id=1uuz50RGiAW8YxRcWeQVgQglZpyAebgSM\"\n            },\n            {  \n               \"name\":\"example code\",\n               \"type\":\"example code\",\n               \"url\":\"https://github.com/slothkong/CNN_classification_10_monkey_species\"\n            },\n            {  \n               \"url\":\"https://s3.amazonaws.com/datacommons-seeding-us-east/10_Monkey_Species_Small/links/discovery/n5151.jpg\",\n               \"name\":\"n5151.jpg\",\n               \"type\":\"discovery\"\n            },\n            {  \n               \"url\":\"https://s3.amazonaws.com/datacommons-seeding-us-east/10_Monkey_Species_Small/links/sample/sample.zip\",\n               \"name\":\"sample.zip\",\n               \"type\":\"sample\"\n            }\n         ],\n         \"inLanguage\":\"en\"\n      }\n   }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/general/publishddo",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"general",
+								"publishddo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/publish",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5f0f4183-45a9-428b-a79d-3d7c2e87f157",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n   \"name\":\"testrest\",\n   \"description\":\"testdesc\",\n   \"author\":\"alex\",\n   \"license\":\"public\",\n   \"copyrightHolder\":\"alex\",\n   \"price\":\"0\",\n   \"type\":\"public\",\n   \"files\":[\n      {  \n         \"index\":0,\n         \"contentType\":\"application/text\",\n         \"url\":\"http://example.net\"\n      }\n   ],\n   \"categories\":\"\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/general/publish",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"general",
+								"publish"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/consumerAssets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/assets/consumerAssets",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"assets",
+								"consumerAssets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/samplemetadata",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/agent/samplemetadata",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"agent",
+								"samplemetadata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/searchtext?text",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/assets/searchtext?text=monkey",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"assets",
+								"searchtext"
+							],
+							"query": [
+								{
+									"key": "text",
+									"value": "monkey"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/agent/samplemetadata",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cb2d6c6e-00dd-4fb3-aa2d-81bd145a38be",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/agent/samplemetadata",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"agent",
+								"samplemetadata"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Higher level functions and utility functions specifically for the Agent. ",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6044596d-db14-430d-a520-9fae4e3082a4",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "bf4b3b14-9b25-4070-a6c4-e4cedd0349e8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "/searchquery?text",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7037cf1-22f4-4926-9771-e2d9e68052ee",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/general/searchquery?text=monkey",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"{{VERSION}}",
+						"general",
+						"searchquery"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "monkey"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/searchtext",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7037cf1-22f4-4926-9771-e2d9e68052ee",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/general/searchtext?text=monkey",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"{{VERSION}}",
+						"general",
+						"searchtext"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "monkey"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/resolve?did",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7a75b105-25bb-48c2-850d-680b917d288c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4e29e76b-cdc3-4bd9-b67a-49e066ff6a69",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/general/resolve?did={{DID_asset1}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"{{VERSION}}",
+						"general",
+						"resolve"
+					],
+					"query": [
+						{
+							"key": "did",
+							"value": "{{DID_asset1}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/consume",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6a497a30-5889-40a6-8082-e0b3086bc61f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"did\":\"did:op:{{token}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/general/consume?did={{DID_asset1}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"{{VERSION}}",
+						"general",
+						"consume"
+					],
+					"query": [
+						{
+							"key": "did",
+							"value": "{{DID_asset1}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/general/samplemetadata",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb2d6c6e-00dd-4fb3-aa2d-81bd145a38be",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/general/samplemetadata",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"{{VERSION}}",
+						"general",
+						"samplemetadata"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "67f7ccfc-41e9-475a-884f-ec6a9b77d451",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "12102977-04a2-4832-b4bc-9bb7c791c9f6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "2bf6288b-787d-4d45-9ba3-90dc6d2c813c",
+			"key": "HOST",
+			"value": "http://localhost",
+			"type": "string"
+		},
+		{
+			"id": "8fe2879b-ef9d-4b4b-b98d-9986b237e3ca",
+			"key": "PORT",
+			"value": "4040",
+			"type": "string"
+		},
+		{
+			"id": "553a389e-561e-4787-81d7-e5326c7e71ef",
+			"key": "DID_asset1",
+			"value": null,
+			"type": "any"
+		},
+		{
+			"id": "1dd3dbc6-b4e3-471a-9fd3-8dbc8ad8f8e4",
+			"key": "VERSION",
+			"value": "api",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
