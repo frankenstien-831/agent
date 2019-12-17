@@ -20,17 +20,28 @@
 
 The API follows the library architecture as specified in the [squid library specifications](https://github.com/oceanprotocol/dev-ocean/blob/master/doc/architecture/squid-specs/squid-spec_v0.3.md).
 
-The following resources are defined;
+The following resources are defined, correlated directly with the libraries. 
 
-- ocean
-- ocean.assets
-- ocean.accounts
-- ocean.secret_store
-- ocean.tokens
+
+
+
+
+| Squid Library   | RESTful Agent |      |
+| --------------- | ------------- | ---- |
+| /assets/create  | /             |      |
+| /assets/resolve | secret_store/ |      |
+| /assets/search  |               |      |
+|                 |               |      |
+
+
+
+- 
 - ocean.templates
 - ocean.services
 - ocean.agreements
 - ocean.agreements.conditions
+
+
 
 ## Development
 
