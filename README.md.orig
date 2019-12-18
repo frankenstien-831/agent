@@ -6,9 +6,13 @@
 > https://agent.oceanprotocol.com
 
 [![Build Status](https://flat.badgen.net/travis/oceanprotocol/agent?icon=travis)](https://travis-ci.com/oceanprotocol/agent)
+<<<<<<< HEAD
+[![js oceanprotocol](https://flat.badgen.net/badge/js/oceanprotocol/7b1173)](https://github.com/oceanprotocol/eslint-config-oceanprotocol) [![Greenkeeper badge](https://badges.greenkeeper.io/oceanprotocol/agent.svg)](https://greenkeeper.io/)
+=======
 [![Maintainability](https://api.codeclimate.com/v1/badges/486682d1818b5ef46f3d/maintainability)](https://codeclimate.com/github/oceanprotocol/agent/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/486682d1818b5ef46f3d/test_coverage)](https://codeclimate.com/github/oceanprotocol/agent/test_coverage)
 [![js oceanprotocol](https://flat.badgen.net/badge/js/oceanprotocol/7b1173)](https://github.com/oceanprotocol/eslint-config-oceanprotocol)
+>>>>>>> remotes/origin/feature/test-setup
 
 - [Architecture](#architecture)
 - [Development](#development)
@@ -65,17 +69,20 @@ The following resources are defined, correlated directly with the libraries.
 
 ## Development
 
-While you can develop against Nile or Pacific with remote instances, the default is to run against a locally running Spree network orchestrated with Barge:
+While you can develop against the Nile or Pacific networks with remote instances, the default is to run against a locally running blockchain network orchestrated with our utility script and docker containers ([Barge](https://github.com/oceanprotocol/barge)):
 
 ```bash
 git clone git@github.com:oceanprotocol/barge.git
 cd barge
 
 # startup with local Spree node
-./start_ocean.sh --no-commons
+./start_ocean.sh --no-commons --no-agent 
+
+# Don't re-deploy contracts after the initial deployment, to save time
+./start_ocean.sh --no-commons --no-agent --local-spree-no-deploy
 ```
 
-Once Barge is running a Spree network, you can continue in this project:
+Once Barge is running a local network, you can continue in this project:
 
 ```bash
 # populate .env file

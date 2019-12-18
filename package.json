@@ -7,7 +7,7 @@
     "start": "nodemon --exec babel-node src/index.js",
     "build": "babel ./src -d ./dist -s --copy-files",
     "lint": "eslint --ignore-path .gitignore .",
-    "test": "npm run lint && ava",
+    "test": "npm run lint && npm run build && ava",
     "serve": "node dist/index.js",
     "data": "npm run build && node dist/insertData.js",
     "format": "prettier ./{src,scripts,test}/**/*.{css,yml,js,jsx,ts,tsx,json} --write",
@@ -48,7 +48,8 @@
     "eslint-plugin-prettier": "^3.1.1",
     "nodemon": "^2.0.1",
     "prettier": "^1.19.1",
-    "release-it": "^12.4.3"
+    "release-it": "^12.4.3",
+    "supertest": "^4.0.2"
   },
   "release-it": {
     "hooks": {
