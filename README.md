@@ -21,47 +21,45 @@
 
 ## Architecture
 
-The API follows the library architecture as specified in the [squid library specifications](https://github.com/oceanprotocol/dev-ocean/blob/master/doc/architecture/squid-specs/squid-spec_v0.3.md).
+*This project is a work in progress. Many of the listed endpoints and resources are not yet implemented. For the latest status, please check the documentation!*
 
-The following resources are defined, correlated directly with the libraries. 
+### High level interaction
 
-'GET' '/api/assets'                                 
-'POST' '/api/assets/create'
-'GET' '/api/assets/resolve'
-'GET' '/api/assets/search'
-'GET' '/api/assets/query'
-'GET' '/api/assets/order'
-'GET' '/api/assets/consume'
-'GET' '/api/assets/validate'
-'GET' '/api/assets/owner'
-'GET' '/api/assets/ownerAssets'
-'GET' '/api/assets/consumerAssets'
-'GET' '/api/assets/searchtext'
-'GET' '/api/assets/samplemetadata'
-'GET' '/api/network/aquarius/status'
-'GET' '/api/network/brizo/status'
-'POST' '/api/general/publishddo'
-'POST' '/api/general/publish'
-'GET' '/api/general/searchquery'
-'GET' '/api/general/searchtext'
-'GET' '/api/general/resolve'
+The Agent is a high level interface for performing the most common actions in the Ocean Protocol network. The Agent specifies these actions under the **/agent** endpoint, with the following endpoints defined; 
 
+Additionally, the network status can be queried under the **/network** resource. 
 
+### Lower level interaction
 
-| Squid Library   | RESTful Agent |      |
-| --------------- | ------------- | ---- |
-| /assets/create  | /             |      |
-| /assets/resolve | secret_store/ |      |
-| /assets/search  |               |      |
-|                 |               |      |
+The API addtionally follows the library architecture as specified in the [squid library specifications](https://github.com/oceanprotocol/dev-ocean/blob/master/doc/architecture/squid-specs/squid-spec_v0.3.md), with the following resources defined;
 
+#### /assets
 
+For creating, listing, and consuming assets. 
 
-- 
-- ocean.templates
-- ocean.services
-- ocean.agreements
-- ocean.agreements.conditions
+#### /accounts
+
+For listing available accounts and balances. 
+
+#### /secretstore
+
+For encrypting and decrypting from the parity secret store. 
+
+#### /tokens
+
+For requesting and transferring tokens. 
+
+#### /templates
+
+For approving and querying service execution agreement templates. 
+
+#### /agreements
+
+For instantiating and querying service execution agreements. 
+
+#### /services
+
+For creating services. 
 
 ## Development
 
