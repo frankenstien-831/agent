@@ -45,17 +45,20 @@ The following resources are defined, correlated directly with the libraries.
 
 ## Development
 
-While you can develop against Nile or Pacific with remote instances, the default is to run against a locally running Spree network orchestrated with Barge:
+While you can develop against the Nile or Pacific networks with remote instances, the default is to run against a locally running blockchain network orchestrated with our utility script and docker containers ([Barge](https://github.com/oceanprotocol/barge)):
 
 ```bash
 git clone git@github.com:oceanprotocol/barge.git
 cd barge
 
 # startup with local Spree node
-./start_ocean.sh --no-commons
+./start_ocean.sh --no-commons --no-agent 
+
+# Don't re-deploy contracts after the initial deployment, to save time
+./start_ocean.sh --no-commons --no-agent --local-spree-no-deploy
 ```
 
-Once Barge is running a Spree network, you can continue in this project:
+Once Barge is running a local network, you can continue in this project:
 
 ```bash
 # populate .env file
