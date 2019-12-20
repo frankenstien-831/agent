@@ -37,7 +37,7 @@ router.get('/consume', async (req, res, next) => {
     console.log('Files consumed')
     res.status(200).json(responseObj)
   } else {
-    res.status(200).json('Consuming is not allowed.')
+    res.status(405).json('Consuming is not allowed.')
   }
 })
 
