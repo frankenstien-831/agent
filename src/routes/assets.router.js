@@ -32,10 +32,13 @@ router.get('/order', async (req, res) => {
 })
 
 router.get('/consume', async (req, res, next) => {
-  const responseObj = await assetsController.GET_consume(req, res)
-
-  console.log('Files consumed')
-  res.status(200).json(responseObj)
+  if (res.locals.globaloptions.enableconsume) {
+    const responseObj = await assetsController.GET_consume(req, res)
+    console.log('Files consumed')
+    res.status(200).json(responseObj)
+  } else {
+    res.status(200).json('Consuming is not allowed.')
+  }
 })
 
 router.get('/validate', async (req, res) => {

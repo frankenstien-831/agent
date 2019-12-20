@@ -44,21 +44,17 @@ cd barge
 ./start_ocean.sh --no-commons
 ```
 
-Once Barge is running a Spree network, you can continue in this project:
+## ENV Vars
 
-```bash
-# populate .env file
-cp .env.example .env
-
-# install dependencies
-npm install
-
-# will copy artifacts from running barge on spree to local folder
-./scripts/keeper.sh
-
-# start live-reloading dev server
-npm start
-```
+   - aquariusUri
+   - brizoAddress
+   - nodeUri
+   - brizoUri
+   - secretstoreUri
+   - faucetUri
+   - PRIVATE_KEY
+   - enable_publish  - set this to true if you want to enable publishing through this agent
+   - enable_consume  - set this to true if you want to enable consuming through this agent
 
 ## Production build
 
