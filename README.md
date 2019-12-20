@@ -43,6 +43,21 @@ cd barge
 # startup with local Spree node
 ./start_ocean.sh --no-commons
 ```
+Once Barge is running a Spree network, you can continue in this project:
+
+```bash
+# populate .env file
+cp .env.example .env
+
+# install dependencies
+npm install
+
+# will copy artifacts from running barge on spree to local folder
+./scripts/keeper.sh
+
+# start live-reloading dev server
+npm start
+```
 
 ### Environment Variables
 
