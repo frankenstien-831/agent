@@ -56,7 +56,7 @@ router.post(
           // OEP-08 Attributes
           // https://github.com/oceanprotocol/OEPs/tree/master/8
           main: {
-            type: type,
+            type,
             name: name,
             dateCreated: new Date().toISOString().split('.')[0] + 'Z', // remove milliseconds,
             author: author,
