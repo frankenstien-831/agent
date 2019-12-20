@@ -27,12 +27,12 @@ router.get(
 
   async (req, res, next) => {
     const accounts = await res.locals.ocean.accounts.list()
-    var ret = Object()
-    ret.address = accounts[0].id
+    const status = {}
+    status.address = accounts[0].id
     try {
-      await accounts[0]._web3.eth.getBalance(ret.address).then(it => {
-        ret.balance = accounts[0]._web3.utils.fromWei(it)
-        if (ret.balance < 1) {
+      await accounts[0]._web3.eth.getBalance(status.address).then(it => {
+        status.balance = accounts[0]._web3.utils.fromWei(it)
+        if (status.balance < 1) {
           // get some gas
           try {
             if (
