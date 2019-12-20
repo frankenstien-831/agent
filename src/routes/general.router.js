@@ -27,7 +27,7 @@ router.post(
       }
       res.status(200).json(result)
     } else {
-      res.status(200).json('Publishing is not allowed.')
+      res.status(405).json('Publishing is not allowed.')
     }
   }
 )
