@@ -44,7 +44,7 @@ cd barge
 ./start_ocean.sh --no-commons
 ```
 
-## ENV Vars
+### Environment Variables
 
    - aquariusUri
    - brizoAddress
