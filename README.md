@@ -43,7 +43,6 @@ cd barge
 # startup with local Spree node
 ./start_ocean.sh --no-commons
 ```
-
 Once Barge is running a Spree network, you can continue in this project:
 
 ```bash
@@ -59,6 +58,18 @@ npm install
 # start live-reloading dev server
 npm start
 ```
+
+### Environment Variables
+
+   - aquariusUri
+   - brizoAddress
+   - nodeUri
+   - brizoUri
+   - secretstoreUri
+   - faucetUri
+   - PRIVATE_KEY
+   - enable_publish  - set this to true if you want to enable publishing through this agent
+   - enable_consume  - set this to true if you want to enable consuming through this agent
 
 ## Production build
 

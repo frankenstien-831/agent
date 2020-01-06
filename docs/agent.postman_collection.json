@@ -74,6 +74,42 @@
 					"response": []
 				},
 				{
+					"name": "/network/gas/status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3169663f-2f15-404f-9208-328d133e1973",
+								"exec": [
+									"console.log(\"HELLO TEST\")",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/{{VERSION}}/network/gas/status",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"{{VERSION}}",
+								"network",
+								"gas",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/network/brizo/status",
 					"event": [
 						{

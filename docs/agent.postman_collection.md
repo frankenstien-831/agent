@@ -35,6 +35,16 @@ Get request to register Brizo network
 $ curl -X GET {{HOST}}:{{PORT}}/{{VERSION}}/network/brizo/status
 ```
 
+### `GET`: /network/gas/status
+Get request to check agent eth address and balance
+
+`{{HOST}}:{{PORT}}/{{VERSION}}/network/gas/status`
+
+**Sample**
+```shell
+$ curl -X GET {{HOST}}:{{PORT}}/{{VERSION}}/network/gas/status
+```
+
 ### `POST`: /create
 `{{HOST}}:{{PORT}}/{{VERSION}}/assets/create`
 

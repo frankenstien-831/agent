@@ -1,5 +1,5 @@
 import express from 'express'
-import AssetModel from '../models/asset'
+// import AssetModel from '../models/asset'
 
 const router = express.Router()
 
@@ -9,24 +9,26 @@ router.post(
 
   async (req, res, next) => {
     console.log('Started publish')
-    const accounts = await res.locals.ocean.accounts.list()
-    // console.log(req.body.metadata);
-    // const { typeofgdpr, gdprcomply, havecopyright, publisher } = req.body
-
-    let result
-
-    try {
-      const ddo = await res.locals.ocean.assets.create(
-        req.body.metadata,
-        accounts[0]
-      )
-      console.log(ddo)
-      result = ddo.id
-    } catch (error) {
-      console.error(error)
-      result = null
+    if (res.locals.globaloptions.enablepublish) {
+      const accounts = await res.locals.ocean.accounts.list()
+      // console.log(req.body.metadata);
+      // const { typeofgdpr, gdprcomply, havecopyright, publisher } = req.body
+      let result
+      try {
+        const ddo = await res.locals.ocean.assets.create(
+          req.body.metadata,
+          accounts[0]
+        )
+        console.log(ddo)
+        result = ddo.id
+      } catch (error) {
+        console.error(error)
+        result = null
+      }
+      res.status(200).json(result)
+    } else {
+      res.status(405).json('Publishing is not allowed.')
     }
-    res.status(200).json(result)
   }
 )
 
@@ -35,51 +37,53 @@ router.post(
 
   async (req, res, next) => {
     console.log('Started publish')
-    const accounts = await res.locals.ocean.accounts.list()
-    let result
-
-    // console.log(req.body.metadata);
-    const {
-      name,
-      author,
-      license,
-      files,
-      price,
-      type,
-      description,
-      copyrightHolder,
-      categories
-    } = req.body
-
-    try {
-      const newAsset = {
-        // OEP-08 Attributes
-        // https://github.com/oceanprotocol/OEPs/tree/master/8
-        main: {
-          ...AssetModel.main,
-          name,
-          dateCreated: new Date().toISOString().split('.')[0] + 'Z', // remove milliseconds
-          author,
-          license,
-          files,
-          price,
-          type
-        },
-        additionalAttributes: {
-          ...AssetModel.additionalAttributes,
-          description,
-          copyrightHolder,
-          categories: [categories]
+    if (res.locals.globaloptions.enablepublish) {
+      const accounts = await res.locals.ocean.accounts.list()
+      let result
+      const {
+        name,
+        author,
+        license,
+        files,
+        price,
+        type,
+        description,
+        copyrightHolder,
+        categories
+      } = req.body
+      try {
+        const newAsset = {
+          // OEP-08 Attributes
+          // https://github.com/oceanprotocol/OEPs/tree/master/8
+          main: {
+            type,
+            name: name,
+            dateCreated: new Date().toISOString().split('.')[0] + 'Z', // remove milliseconds,
+            author: author,
+            license: license,
+            price: price,
+            files: files
+          },
+          additionalAttributes: {
+            description: description,
+            copyrightHolder: copyrightHolder,
+            categories: [categories]
+          }
         }
-      }
 
-      const asset = await res.locals.ocean.assets.create(newAsset, accounts[0])
-      result = asset.id
-    } catch (error) {
-      console.error(error)
-      result = null
+        const asset = await res.locals.ocean.assets.create(
+          newAsset,
+          accounts[0]
+        )
+        result = asset.id
+      } catch (error) {
+        console.error(error)
+        result = null
+      }
+      res.status(200).json(result)
+    } else {
+      res.status(405).json('Publishing is not allowed.')
     }
-    res.status(200).json(result)
   }
 )
 

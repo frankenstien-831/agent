@@ -16,6 +16,11 @@ import { initializeOceanNetwork, provider } from './models/initializeOcean'
 
 winston.info('Instantiating Ocean Squid library')
 
+const globaloptions = {
+  enablepublish: process.env.enable_publish === 'true' || false,
+  enableconsume: process.env.enable_consume === 'true' || false
+}
+
 let ocean
 ;(async () => {
   ocean = await initializeOceanNetwork()
@@ -63,6 +68,7 @@ app.use(json())
 app.use((req, res, next) => {
   res.locals.ocean = ocean
   res.locals.provider = provider
+  res.locals.globaloptions = globaloptions
   res.header('Access-Control-Allow-Origin', '*')
   res.header(
     'Access-Control-Allow-Headers',
