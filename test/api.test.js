@@ -4,7 +4,8 @@ newman.run(
   {
     collection: require('../docs/agent.postman_collection.json'),
     environment: require('../docs/agent.postman_environment.json'),
-    reporters: 'cli'
+    reporters: 'cli',
+    bail: true
   },
   err => {
     if (err) {
