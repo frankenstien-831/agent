@@ -2,6 +2,8 @@ import 'dotenv/config'
 
 import express, { urlencoded, json } from 'express'
 import morgan from 'morgan'
+import swaggerJsdoc from 'swagger-jsdoc'
+import swaggerUi from 'swagger-ui-express'
 import rateLimit from 'express-rate-limit'
 import listEndpoints from 'express-list-endpoints'
 import { indexRouter } from './routes/index.router'
@@ -9,6 +11,7 @@ import { handleErrors } from './middlewares'
 import winston from './config/winston'
 import { checkAquarius, checkBrizo } from './models/checkOcean'
 import { initializeOceanNetwork, provider } from './models/initializeOcean'
+import swaggerConfig from './config/swagger-base'
 
 /* -----------------------------------
     Instantiate the Ocean connection
@@ -79,6 +82,16 @@ app.use((req, res, next) => {
 })
 
 /* -----------------------------------
+    Swagger setup
+  ----------------------------------- */
+const specs = swaggerJsdoc(swaggerConfig)
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }))
+app.get('/spec', (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
+  res.send(specs)
+})
+
+/* -----------------------------------
     Routes
   ----------------------------------- */
 
@@ -98,6 +111,9 @@ app.use('/network/publish', apiLimiter)
 app.use('/network/publishddo', apiLimiter)
 
 console.log(listEndpoints(app))
+
+// handle errors
+app.use(handleErrors)
 
 /* -----------------------------------
     Start the server
