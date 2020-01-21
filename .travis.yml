@@ -21,7 +21,6 @@ script:
   - ./scripts/keeper.sh
   # newman for executing postman collection api tests
   - npm test
-  - './cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT'
   - npm run build
 
 notifications:
