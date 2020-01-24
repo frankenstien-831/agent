@@ -3,98 +3,55 @@ import express from 'express'
 
 const router = express.Router()
 
-/**
- * @swagger
- * /general/publishddo:
- *   post:
- *     summary: Publish assets in DDO format to Ocean Protocol
- *     description: This endpoint allows to publish assets into Ocean Protocol in DDO format
- *     consumes:
- *       — application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         required: true
- *     responses:
- *       200:
- *         description: Published successfully
- *       405:
- *         description: Publishing is not allowed
- *       500:
- *         description: Some error occured
- */
+// POST request to register new network
 router.post(
   '/publishddo',
 
   async (req, res, next) => {
-    try {
-      console.log('Started publish')
-      if (res.locals.globaloptions.enablepublish) {
-        const accounts = await res.locals.ocean.accounts.list()
-        // console.log(req.body.metadata);
-        // const { typeofgdpr, gdprcomply, havecopyright, publisher } = req.body
-        let result
-        try {
-          const ddo = await res.locals.ocean.assets.create(
-            req.body.metadata,
-            accounts[0]
-          )
-          console.log(ddo)
-          result = ddo.id
-        } catch (error) {
-          console.error(error)
-          result = null
-        }
-        res.status(200).json(result)
-      } else {
-        res.status(405).json('Publishing is not allowed.')
+    console.log('Started publish')
+    if (res.locals.globaloptions.enablepublish) {
+      const accounts = await res.locals.ocean.accounts.list()
+      // console.log(req.body.metadata);
+      // const { typeofgdpr, gdprcomply, havecopyright, publisher } = req.body
+      let result
+      try {
+        const ddo = await res.locals.ocean.assets.create(
+          req.body.metadata,
+          accounts[0]
+        )
+        console.log(ddo)
+        result = ddo.id
+      } catch (error) {
+        console.error(error)
+        result = null
       }
-    } catch (error) {
-      next(new Error(error))
+      res.status(200).json(result)
+    } else {
+      res.status(405).json('Publishing is not allowed.')
     }
   }
 )
 
-/**
- * @swagger
- * /general/publish:
- *   post:
- *     summary: Publish assets into Ocean Protocol
- *     description: This endpoint allows to publish assets into Ocean Protocol
- *     consumes:
- *       — application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         required: true
- *     responses:
- *       200:
- *         description: Published successfully
- *       405:
- *         description: Publishing is not allowed
- *       500:
- *         description: Some error occured
- */
 router.post(
   '/publish',
 
   async (req, res, next) => {
-    try {
-      console.log('Started publish')
-      if (res.locals.globaloptions.enablepublish) {
-        const accounts = await res.locals.ocean.accounts.list()
-        const {
-          name,
-          author,
-          license,
-          files,
-          price,
-          type,
-          description,
-          copyrightHolder,
-          categories
-        } = req.body
-
+    console.log('Started publish')
+    if (res.locals.globaloptions.enablepublish) {
+      const accounts = await res.locals.ocean.accounts.list()
+      let result
+      const {
+        name,
+        author,
+        license,
+        files,
+        price,
+        type,
+        description,
+        copyrightHolder,
+        categories
+      } = req.body
+      try {
         const newAsset = {
           // OEP-08 Attributes
           // https://github.com/oceanprotocol/OEPs/tree/master/8
@@ -118,17 +75,14 @@ router.post(
           newAsset,
           accounts[0]
         )
-        const result = asset.id
-        // throw is did is not returned
-        if (!result) {
-          throw new Error('unable to publish')
-        }
-        res.status(200).json(result)
-      } else {
-        res.status(405).json('Publishing is not allowed.')
+        result = asset.id
+      } catch (error) {
+        console.error(error)
+        result = null
       }
-    } catch (error) {
-      next(new Error(error))
+      res.status(200).json(result)
+    } else {
+      res.status(405).json('Publishing is not allowed.')
     }
   }
 )

@@ -62,6 +62,3 @@ typings/
 dist/
 .vscode/
 package-lock.json
-
-# newman test reports
-newman/
